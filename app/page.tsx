@@ -13,7 +13,7 @@ export default function Home() {
         {/* Header */}
         <div className="space-y-6 sm:space-y-8 flex flex-col items-center text-center w-full px-2 sm:px-0">
           <h1 className="text-[1.75rem] sm:text-4xl md:text-5xl lg:text-6xl font-black tracking-tighter leading-tight text-balance break-words text-[#3E2723] dark:text-[#EFEBE9]">
-            안녕하세요, <span className="text-teal-600 dark:text-teal-400">서주형</span>입니다
+            안녕하세요, <span className="text-[#1B4D3E] dark:text-[#2D6A4F]">서주형</span>입니다
           </h1>
           
           <Image
