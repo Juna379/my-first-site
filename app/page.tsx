@@ -28,6 +28,9 @@ export default function Home() {
           <p className="text-[0.95rem] sm:text-lg lg:text-xl text-[#5D4037] dark:text-[#D7CCC8] max-w-lg font-medium leading-relaxed text-balance break-words">
             내 하루의 이야기가 가장 생생한 영어 문장이 됩니다
           </p>
+          <p className="-mt-4 sm:-mt-6 text-[0.95rem] sm:text-lg lg:text-xl text-[#5D4037] dark:text-[#D7CCC8] max-w-lg font-medium leading-relaxed text-balance break-words">
+            방문해 주셔서 감사합니다, 만나서 반가워요!
+          </p>
         </div>
 
         {/* Tech Stack Pills */}
