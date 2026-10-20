@@ -1,4 +1,5 @@
 import Image from "next/image";
+import ContactForm from "./contact-form";
 
 export default function Home() {
   return (
@@ -61,6 +62,9 @@ export default function Home() {
         <p className="text-sm sm:text-base font-medium text-[#C84726]">
           오늘 처음 인터넷에 사이트를 올렸어요!
         </p>
+
+        {/* Inquiry Form */}
+        <ContactForm />
       </div>
     </main>
   );
