@@ -1,11 +1,12 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const inputClass =
   "w-full rounded-xl border border-[#D5CABD] dark:border-[#4A3B32] bg-white/70 dark:bg-[#1A1614]/60 px-4 py-3 text-sm sm:text-base text-[#3E2723] dark:text-[#EFEBE9] placeholder:text-[#A1887F] shadow-sm outline-none transition focus:border-[#1B4D3E] dark:focus:border-[#2D6A4F] focus:ring-4 focus:ring-[#1B4D3E]/15 dark:focus:ring-[#2D6A4F]/25 aria-[invalid=true]:border-[#C84726]";
 
 export default function ContactForm() {
+  const [isOpen, setIsOpen] = useState(false);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
@@ -67,22 +68,55 @@ export default function ContactForm() {
     }
   };
 
+  useEffect(() => {
+    if (isOpen) {
+      const el = document.getElementById("contact");
+      el?.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  }, [isOpen]);
+
+  if (!isOpen) {
+    return (
+      <div className="pt-2 flex justify-center w-full">
+        <button
+          id="open-contact-button"
+          type="button"
+          onClick={() => setIsOpen(true)}
+          className="group inline-flex items-center justify-center gap-2 rounded-xl bg-[#1B4D3E] dark:bg-[#2D6A4F] px-8 py-3.5 text-base sm:text-lg font-bold text-white shadow-md transition hover:-translate-y-0.5 hover:bg-[#153D31] hover:shadow-lg active:translate-y-0"
+        >
+          <span className="text-xl">✉️</span>
+          <span>문의사항 남기기</span>
+          <span className="transition-transform group-hover:translate-x-1">→</span>
+        </button>
+      </div>
+    );
+  }
+
   return (
     <section
       id="contact"
       aria-labelledby="contact-title"
-      className="w-full text-left rounded-2xl border border-[#D5CABD] dark:border-[#4A3B32] bg-white/50 dark:bg-[#3E2723]/30 backdrop-blur-sm p-5 sm:p-8 shadow-md"
+      className="w-full text-left rounded-2xl border border-[#D5CABD] dark:border-[#4A3B32] bg-white/50 dark:bg-[#3E2723]/30 backdrop-blur-sm p-5 sm:p-8 shadow-md transition-all"
     >
-      <div className="mb-6 space-y-1">
-        <h2
-          id="contact-title"
-          className="text-xl sm:text-2xl font-black tracking-tight text-[#3E2723] dark:text-[#EFEBE9]"
+      <div className="mb-6 flex items-start justify-between gap-4">
+        <div className="space-y-1">
+          <h2
+            id="contact-title"
+            className="text-xl sm:text-2xl font-black tracking-tight text-[#3E2723] dark:text-[#EFEBE9]"
+          >
+            문의사항 남기기
+          </h2>
+          <p className="text-sm text-[#795548] dark:text-[#BCAAA4]">
+            궁금한 점이나 하고 싶은 말을 자유롭게 남겨 주세요.
+          </p>
+        </div>
+        <button
+          type="button"
+          onClick={() => setIsOpen(false)}
+          className="text-xs sm:text-sm font-semibold text-[#795548] dark:text-[#BCAAA4] hover:text-[#3E2723] dark:hover:text-[#EFEBE9] px-3 py-1.5 rounded-lg border border-[#D5CABD] dark:border-[#4A3B32] hover:bg-black/5 dark:hover:bg-white/5 transition shrink-0"
         >
-          문의사항 남기기
-        </h2>
-        <p className="text-sm text-[#795548] dark:text-[#BCAAA4]">
-          궁금한 점이나 하고 싶은 말을 자유롭게 남겨 주세요.
-        </p>
+          닫기 ✕
+        </button>
       </div>
 
       <form onSubmit={handleSubmit} noValidate className="space-y-4">
