@@ -15,6 +15,12 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "My First Site",
   description: "가장 단순하고 깔끔한 Next.js + TypeScript + Tailwind CSS 시작 프로젝트",
+  verification: {
+    google: "6D96zIneZbrCNeMF_hQW3KN5PNaCUa1rII0cSp1OEI8",
+    other: {
+      "naver-site-verification": "522f17693d1dd6e635bfa941d66a1e00d4140b96",
+    },
+  },
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
