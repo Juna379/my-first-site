@@ -14,10 +14,10 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://candoit30.vercel.app/"),
-  title: "안녕하세요, 서주형입니다",
+  title: "친구할까 영어랑",
   description: "내 하루의 이야기가 가장 생생한 영어 문장이 됩니다",
   openGraph: {
-    title: "안녕하세요, 서주형입니다",
+    title: "친구할까 영어랑",
     description: "내 하루의 이야기가 가장 생생한 영어 문장이 됩니다",
     url: "https://candoit30.vercel.app/",
     images: ["/tree.jpg"],
