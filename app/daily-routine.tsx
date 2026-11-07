@@ -1021,46 +1021,48 @@ export default function DailyRoutine() {
         </button>
 
         {/* Card 1 Content */}
-        {openSteps[1] && (
-          <div className="sm:order-4 sm:col-span-3 p-5 rounded-xl border border-[#D5CABD] dark:border-[#4A3B32] bg-white/75 dark:bg-[#3E2723]/40 shadow-sm space-y-4">
-            <div className="border-b border-[#D5CABD]/70 dark:border-[#4A3B32] pb-2.5">
-              <span className="text-[11px] font-bold text-[#1B4D3E] dark:text-[#52B788] uppercase tracking-wider">
-                STEP 1 · SPEAKING
-              </span>
-              <h3 className="text-sm sm:text-base font-bold text-[#3E2723] dark:text-[#EFEBE9] mt-0.5">
-                {currentTheme.step1Title}
-              </h3>
-            </div>
-
-            <div className="space-y-3">
-              {currentTheme.dialogues.map((line, idx) => (
-                <div
-                  key={idx}
-                  className="p-3 rounded-lg bg-[#F5F1E7]/70 dark:bg-[#1A1614]/50 border border-[#D5CABD]/60 dark:border-[#4A3B32]/60 space-y-1"
-                >
-                  <div className="flex items-start justify-between gap-2">
-                    <p className="text-sm sm:text-base font-semibold text-[#3E2723] dark:text-[#EFEBE9]">
-                      <span className="text-[#1B4D3E] dark:text-[#52B788] font-bold mr-1.5">
-                        {line.speaker}:
-                      </span>
-                      {line.en}
-                    </p>
-                    <button
-                      type="button"
-                      onClick={() => handleSpeak(line.en)}
-                      className="shrink-0 inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-[#1B4D3E] dark:bg-[#2D6A4F] text-white text-xs font-semibold shadow-xs hover:bg-[#153D31] active:scale-95 transition cursor-pointer"
-                    >
-                      듣기 🔊
-                    </button>
-                  </div>
-                  <p className="text-xs sm:text-sm text-[#795548] dark:text-[#BCAAA4]">
-                    {line.ko}
-                  </p>
-                </div>
-              ))}
-            </div>
+        <div
+          className={`${
+            openSteps[1] ? "block" : "hidden"
+          } sm:order-4 sm:col-span-3 p-5 rounded-xl border border-[#D5CABD] dark:border-[#4A3B32] bg-white/75 dark:bg-[#3E2723]/40 shadow-sm space-y-4`}
+        >
+          <div className="border-b border-[#D5CABD]/70 dark:border-[#4A3B32] pb-2.5">
+            <span className="text-[11px] font-bold text-[#1B4D3E] dark:text-[#52B788] uppercase tracking-wider">
+              STEP 1 · SPEAKING
+            </span>
+            <h3 className="text-sm sm:text-base font-bold text-[#3E2723] dark:text-[#EFEBE9] mt-0.5">
+              {currentTheme.step1Title}
+            </h3>
           </div>
-        )}
+
+          <div className="space-y-3">
+            {currentTheme.dialogues.map((line, idx) => (
+              <div
+                key={idx}
+                className="p-3 rounded-lg bg-[#F5F1E7]/70 dark:bg-[#1A1614]/50 border border-[#D5CABD]/60 dark:border-[#4A3B32]/60 space-y-1"
+              >
+                <div className="flex items-start justify-between gap-2">
+                  <p className="text-sm sm:text-base font-semibold text-[#3E2723] dark:text-[#EFEBE9]">
+                    <span className="text-[#1B4D3E] dark:text-[#52B788] font-bold mr-1.5">
+                      {line.speaker}:
+                    </span>
+                    {line.en}
+                  </p>
+                  <button
+                    type="button"
+                    onClick={() => handleSpeak(line.en)}
+                    className="shrink-0 inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-[#1B4D3E] dark:bg-[#2D6A4F] text-white text-xs font-semibold shadow-xs hover:bg-[#153D31] active:scale-95 transition cursor-pointer"
+                  >
+                    듣기 🔊
+                  </button>
+                </div>
+                <p className="text-xs sm:text-sm text-[#795548] dark:text-[#BCAAA4]">
+                  {line.ko}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
 
         {/* Card 2 Trigger */}
         <button
@@ -1093,72 +1095,76 @@ export default function DailyRoutine() {
         </button>
 
         {/* Card 2 Content (Writing Challenge Mode) */}
-        {openSteps[2] && (
-          <div className="sm:order-5 sm:col-span-3 p-5 rounded-xl border border-[#D5CABD] dark:border-[#4A3B32] bg-white/75 dark:bg-[#3E2723]/40 shadow-sm space-y-4">
-            <div className="border-b border-[#D5CABD]/70 dark:border-[#4A3B32] pb-2">
-              <span className="text-[11px] font-bold text-[#1B4D3E] dark:text-[#52B788] uppercase tracking-wider">
-                STEP 2 · READING &amp; WRITING
-              </span>
-              <h3 className="text-sm sm:text-base font-bold text-[#3E2723] dark:text-[#EFEBE9] mt-0.5">
-                오늘의 1분 미니 에세이
-              </h3>
-            </div>
-
-            {/* 1. Korean Prompt First */}
-            <div className="p-3.5 rounded-lg bg-[#F5F1E7]/70 dark:bg-[#1A1614]/50 border border-[#D5CABD]/60 dark:border-[#4A3B32]/60 space-y-1">
-              <span className="text-[11px] font-semibold text-[#795548] dark:text-[#BCAAA4]">
-                오늘의 한글 문장
-              </span>
-              <p className="text-sm sm:text-base font-semibold leading-relaxed text-[#3E2723] dark:text-[#EFEBE9] break-keep">
-                &ldquo;{currentTheme.essayKo}&rdquo;
-              </p>
-            </div>
-
-            {/* 2. User English Writing Textarea */}
-            <div className="space-y-2">
-              <textarea
-                rows={3}
-                value={writingText}
-                onChange={(e) => setWritingText(e.target.value)}
-                placeholder="한글을 보고 영어로 먼저 써보세요. (생각만 해보고 정답을 열어보셔도 좋아요!)"
-                aria-label="영작 연습 입력란"
-                className="w-full rounded-xl border border-[#D5CABD] dark:border-[#4A3B32] bg-white/80 dark:bg-[#1A1614]/60 px-3.5 py-2.5 text-sm text-[#3E2723] dark:text-[#EFEBE9] placeholder:text-[#A1887F] shadow-xs outline-none transition focus:border-[#1B4D3E] dark:focus:border-[#2D6A4F] focus:ring-3 focus:ring-[#1B4D3E]/15 dark:focus:ring-[#2D6A4F]/25 resize-y"
-              />
-
-              {/* 3. Toggle Answer Button */}
-              <div>
-                <button
-                  type="button"
-                  onClick={() => setShowAnswer((prev) => !prev)}
-                  className="inline-flex items-center gap-1.5 rounded-xl bg-[#1B4D3E] dark:bg-[#2D6A4F] px-4 py-2 text-xs sm:text-sm font-bold text-white shadow-xs transition hover:bg-[#153D31] active:scale-[0.99] cursor-pointer"
-                >
-                  <span>정답 영문 확인하기 👁️</span>
-                </button>
-              </div>
-            </div>
-
-            {/* Answer Box */}
-            {showAnswer && (
-              <div className="p-4 rounded-xl bg-[#F5F1E7] dark:bg-[#1A1614]/70 border border-[#1B4D3E]/30 dark:border-[#2D6A4F]/50 space-y-2.5 transition-all">
-                <div className="flex items-center justify-between gap-2">
-                  <span className="text-xs font-bold text-[#1B4D3E] dark:text-[#52B788]">
-                    추천 영문 정답
-                  </span>
-                  <button
-                    type="button"
-                    onClick={() => handleSpeak(currentTheme.essayEn)}
-                    className="shrink-0 inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-[#1B4D3E] dark:bg-[#2D6A4F] text-white text-xs font-semibold shadow-xs hover:bg-[#153D31] active:scale-95 transition cursor-pointer"
-                  >
-                    듣기 🔊
-                  </button>
-                </div>
-                <p className="text-sm sm:text-base font-semibold leading-relaxed text-[#3E2723] dark:text-[#EFEBE9]">
-                  &ldquo;{currentTheme.essayEn}&rdquo;
-                </p>
-              </div>
-            )}
+        <div
+          className={`${
+            openSteps[2] ? "block" : "hidden"
+          } sm:order-5 sm:col-span-3 p-5 rounded-xl border border-[#D5CABD] dark:border-[#4A3B32] bg-white/75 dark:bg-[#3E2723]/40 shadow-sm space-y-4`}
+        >
+          <div className="border-b border-[#D5CABD]/70 dark:border-[#4A3B32] pb-2">
+            <span className="text-[11px] font-bold text-[#1B4D3E] dark:text-[#52B788] uppercase tracking-wider">
+              STEP 2 · READING &amp; WRITING
+            </span>
+            <h3 className="text-sm sm:text-base font-bold text-[#3E2723] dark:text-[#EFEBE9] mt-0.5">
+              오늘의 1분 미니 에세이
+            </h3>
           </div>
-        )}
+
+          {/* 1. Korean Prompt First */}
+          <div className="p-3.5 rounded-lg bg-[#F5F1E7]/70 dark:bg-[#1A1614]/50 border border-[#D5CABD]/60 dark:border-[#4A3B32]/60 space-y-1">
+            <span className="text-[11px] font-semibold text-[#795548] dark:text-[#BCAAA4]">
+              오늘의 한글 문장
+            </span>
+            <p className="text-sm sm:text-base font-semibold leading-relaxed text-[#3E2723] dark:text-[#EFEBE9] break-keep">
+              &ldquo;{currentTheme.essayKo}&rdquo;
+            </p>
+          </div>
+
+          {/* 2. User English Writing Textarea */}
+          <div className="space-y-2">
+            <textarea
+              rows={3}
+              value={writingText}
+              onChange={(e) => setWritingText(e.target.value)}
+              placeholder="한글을 보고 영어로 먼저 써보세요. (생각만 해보고 정답을 열어보셔도 좋아요!)"
+              aria-label="영작 연습 입력란"
+              className="w-full rounded-xl border border-[#D5CABD] dark:border-[#4A3B32] bg-white/80 dark:bg-[#1A1614]/60 px-3.5 py-2.5 text-sm text-[#3E2723] dark:text-[#EFEBE9] placeholder:text-[#A1887F] shadow-xs outline-none transition focus:border-[#1B4D3E] dark:focus:border-[#2D6A4F] focus:ring-3 focus:ring-[#1B4D3E]/15 dark:focus:ring-[#2D6A4F]/25 resize-y"
+            />
+
+            {/* 3. Toggle Answer Button */}
+            <div>
+              <button
+                type="button"
+                onClick={() => setShowAnswer((prev) => !prev)}
+                className="inline-flex items-center gap-1.5 rounded-xl bg-[#1B4D3E] dark:bg-[#2D6A4F] px-4 py-2 text-xs sm:text-sm font-bold text-white shadow-xs transition hover:bg-[#153D31] active:scale-[0.99] cursor-pointer"
+              >
+                <span>정답 영문 확인하기 👁️</span>
+              </button>
+            </div>
+          </div>
+
+          {/* Answer Box */}
+          <div
+            className={`${
+              showAnswer ? "block" : "hidden"
+            } p-4 rounded-xl bg-[#F5F1E7] dark:bg-[#1A1614]/70 border border-[#1B4D3E]/30 dark:border-[#2D6A4F]/50 space-y-2.5 transition-all`}
+          >
+            <div className="flex items-center justify-between gap-2">
+              <span className="text-xs font-bold text-[#1B4D3E] dark:text-[#52B788]">
+                추천 영문 정답
+              </span>
+              <button
+                type="button"
+                onClick={() => handleSpeak(currentTheme.essayEn)}
+                className="shrink-0 inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-[#1B4D3E] dark:bg-[#2D6A4F] text-white text-xs font-semibold shadow-xs hover:bg-[#153D31] active:scale-95 transition cursor-pointer"
+              >
+                듣기 🔊
+              </button>
+            </div>
+            <p className="text-sm sm:text-base font-semibold leading-relaxed text-[#3E2723] dark:text-[#EFEBE9]">
+              &ldquo;{currentTheme.essayEn}&rdquo;
+            </p>
+          </div>
+        </div>
 
         {/* Card 3 Trigger */}
         <button
@@ -1191,33 +1197,35 @@ export default function DailyRoutine() {
         </button>
 
         {/* Card 3 Content */}
-        {openSteps[3] && (
-          <div className="sm:order-6 sm:col-span-3 p-5 rounded-xl border border-[#D5CABD] dark:border-[#4A3B32] bg-white/75 dark:bg-[#3E2723]/40 shadow-sm space-y-3">
-            <div className="border-b border-[#D5CABD]/70 dark:border-[#4A3B32] pb-2">
-              <span className="text-[11px] font-bold text-[#1B4D3E] dark:text-[#52B788] uppercase tracking-wider">
-                STEP 3 · VOCAB &amp; EXPRESSION
-              </span>
-              <h3 className="text-sm sm:text-base font-bold text-[#3E2723] dark:text-[#EFEBE9] mt-0.5">
-                오늘의 핵심 표현
-              </h3>
-            </div>
-            <ul className="space-y-2.5">
-              {currentTheme.expressions.map((item, idx) => (
-                <li
-                  key={idx}
-                  className="p-3 rounded-lg bg-[#F5F1E7]/70 dark:bg-[#1A1614]/50 border border-[#D5CABD]/60 dark:border-[#4A3B32]/60 text-xs sm:text-sm text-[#3E2723] dark:text-[#EFEBE9]"
-                >
-                  <span className="font-bold text-[#1B4D3E] dark:text-[#52B788] mr-1.5">
-                    {item.num} {item.expr}
-                  </span>
-                  <span className="text-[#795548] dark:text-[#BCAAA4]">
-                    : {item.meaning}
-                  </span>
-                </li>
-              ))}
-            </ul>
+        <div
+          className={`${
+            openSteps[3] ? "block" : "hidden"
+          } sm:order-6 sm:col-span-3 p-5 rounded-xl border border-[#D5CABD] dark:border-[#4A3B32] bg-white/75 dark:bg-[#3E2723]/40 shadow-sm space-y-3`}
+        >
+          <div className="border-b border-[#D5CABD]/70 dark:border-[#4A3B32] pb-2">
+            <span className="text-[11px] font-bold text-[#1B4D3E] dark:text-[#52B788] uppercase tracking-wider">
+              STEP 3 · VOCAB &amp; EXPRESSION
+            </span>
+            <h3 className="text-sm sm:text-base font-bold text-[#3E2723] dark:text-[#EFEBE9] mt-0.5">
+              오늘의 핵심 표현
+            </h3>
           </div>
-        )}
+          <ul className="space-y-2.5">
+            {currentTheme.expressions.map((item, idx) => (
+              <li
+                key={idx}
+                className="p-3 rounded-lg bg-[#F5F1E7]/70 dark:bg-[#1A1614]/50 border border-[#D5CABD]/60 dark:border-[#4A3B32]/60 text-xs sm:text-sm text-[#3E2723] dark:text-[#EFEBE9]"
+              >
+                <span className="font-bold text-[#1B4D3E] dark:text-[#52B788] mr-1.5">
+                  {item.num} {item.expr}
+                </span>
+                <span className="text-[#795548] dark:text-[#BCAAA4]">
+                  : {item.meaning}
+                </span>
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
 
       {/* Today's Speaking Mission */}
