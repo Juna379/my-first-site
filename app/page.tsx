@@ -39,22 +39,8 @@ export default function Home() {
           </div>
         </div>
 
-        {/* Daily Routine Accordion Cards */}
+        {/* Daily Routine Keyword Input, Accordion Cards & Speaking Mission */}
         <DailyRoutine />
-
-        {/* Today's Speaking Mission */}
-        <div className="p-4 rounded-xl bg-[#3E2723] text-[#EFEBE9] dark:bg-[#1A1614] dark:border dark:border-[#3E2723] text-left font-mono text-xs sm:text-sm space-y-2 shadow-md">
-          <div className="flex items-center justify-between text-[#BCAAA4] border-b border-[#5D4037] pb-2">
-            <span className="font-bold text-[#EFEBE9]">Today&apos;s Speaking Mission</span>
-            <span className="text-[11px] text-[#A1887F]">오늘의 한 줄 스피킹 미션</span>
-          </div>
-          <p className="text-amber-400 font-semibold text-sm sm:text-base select-all">
-            &ldquo;It&apos;s a perfect day for a quiet walk with a warm cup of coffee.&rdquo;
-          </p>
-          <p className="text-xs text-[#D7CCC8] font-sans">
-            (소리 내어 3번 읽어보세요! 입술 근육이 기억합니다.)
-          </p>
-        </div>
 
         <p className="text-sm sm:text-base font-medium text-[#C84726]">
           오늘의 30분 영어 루틴을 완료했어요! 🎉
