@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef } from "react";
 
 type DialogueLine = {
   speaker: "A" | "B";
@@ -892,6 +892,7 @@ export default function DailyRoutine() {
   const [openSteps, setOpenSteps] = useState<Record<number, boolean>>({});
   const [writingText, setWritingText] = useState("");
   const [showAnswer, setShowAnswer] = useState(false);
+  const audioRef = useRef<HTMLAudioElement | null>(null);
 
   const toggleStep = (step: number) => {
     setOpenSteps((prev) => ({
@@ -921,15 +922,53 @@ export default function DailyRoutine() {
     setOpenSteps({ 1: true, 2: true, 3: true });
   };
 
-  const handleSpeak = (text: string) => {
+  const speakWithWebSpeech = (text: string) => {
     if (typeof window === "undefined" || !("speechSynthesis" in window)) {
       return;
     }
     window.speechSynthesis.cancel();
-    const utterance = new SpeechSynthesisUtterance(text);
-    utterance.lang = "en-US";
-    utterance.rate = 0.95;
-    window.speechSynthesis.speak(utterance);
+    if (typeof window.speechSynthesis.resume === "function") {
+      window.speechSynthesis.resume();
+    }
+    setTimeout(() => {
+      const utterance = new SpeechSynthesisUtterance(text);
+      utterance.lang = "en-US";
+      utterance.rate = 0.95;
+      const voices = window.speechSynthesis.getVoices();
+      const enVoice =
+        voices.find(
+          (v) => v.lang === "en-US" || v.lang === "en_US"
+        ) ?? voices.find((v) => v.lang.toLowerCase().startsWith("en"));
+      if (enVoice) {
+        utterance.voice = enVoice;
+      }
+      window.speechSynthesis.speak(utterance);
+    }, 50);
+  };
+
+  const handleSpeak = (text: string) => {
+    if (typeof window === "undefined") return;
+
+    if ("speechSynthesis" in window) {
+      window.speechSynthesis.cancel();
+    }
+
+    try {
+      const audio = audioRef.current ?? new Audio();
+      audioRef.current = audio;
+      audio.pause();
+      audio.src = `/api/tts?text=${encodeURIComponent(text)}`;
+      audio.currentTime = 0;
+
+      const playPromise = audio.play();
+      if (playPromise !== undefined) {
+        playPromise.catch(() => {
+          speakWithWebSpeech(text);
+        });
+      }
+    } catch {
+      speakWithWebSpeech(text);
+    }
   };
 
   return (
