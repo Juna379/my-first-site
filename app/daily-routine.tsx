@@ -228,8 +228,8 @@ const PRESET_THEMES: Record<string, RoutineTheme> = {
   },
   library: {
     id: "library",
-    chipLabel: "📚 도서관과 조용한 공부",
-    step1Title: "Quiet Study Time at the Library - 도서관과 조용한 공부",
+    chipLabel: "📚 도서관에서 조용히 공부하기",
+    step1Title: "Quiet Study Time at the Library - 도서관에서 조용히 공부하기",
     dialogues: [
       {
         speaker: "A",
@@ -244,18 +244,18 @@ const PRESET_THEMES: Record<string, RoutineTheme> = {
       {
         speaker: "A",
         en: "I'm going to read two chapters of this English book today.",
-        ko: "(오늘은 이 영어책 두 챕터를 읽어보려고 해.)",
+        ko: "(오늘은 이 영어책 두 챕터를 읽으려고 해.)",
       },
       {
         speaker: "B",
-        en: "Little by little, our daily study habit is paying off.",
-        ko: "(조금씩이지만, 매일 공부하는 습관이 빛을 발하고 있어.)",
+        en: "Little by little, studying every day is paying off.",
+        ko: "(조금씩이지만 매일 공부하는 것이 결실을 맺고 있어.)",
       },
     ],
     essayKo:
-      "창가로 햇살이 들어오는 조용한 도서관에 앉아 영어 노트를 펼쳤습니다. 매일 조금씩 쌓이는 노력이 나를 더 넓은 세상으로 이끌어 줍니다.",
+      "창가로 햇살이 들어오는 조용한 도서관에 앉아 영어 노트를 펼쳤습니다. 매일 조금씩 쌓이는 노력이 나에게 더 넓은 세상을 열어 주고 있습니다.",
     essayEn:
-      "Sitting in a quiet library with sunlight streaming through the window, I opened my English notebook. Small daily efforts lead me to a wider world.",
+      "Sitting in a quiet library with sunlight streaming through the window, I opened my English notebook. Small efforts every day are opening up a bigger world for me.",
     expressions: [
       {
         num: "1)",
@@ -274,7 +274,7 @@ const PRESET_THEMES: Record<string, RoutineTheme> = {
       },
     ],
     missionEn:
-      "Little by little, my daily English study habit is really paying off.",
+      "Little by little, my daily English practice is really paying off.",
   },
   rain: {
     id: "rain",
