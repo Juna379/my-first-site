@@ -42,10 +42,6 @@ export default function Home() {
         {/* Daily Routine Keyword Input, Accordion Cards & Speaking Mission */}
         <DailyRoutine />
 
-        <p className="text-sm sm:text-base font-medium text-[#C84726]">
-          오늘의 30분 영어 루틴을 완료했어요! 🎉
-        </p>
-
         {/* Inquiry Form */}
         <ContactForm />
       </div>

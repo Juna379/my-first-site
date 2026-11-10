@@ -892,6 +892,7 @@ export default function DailyRoutine() {
   const [openSteps, setOpenSteps] = useState<Record<number, boolean>>({});
   const [writingText, setWritingText] = useState("");
   const [showAnswer, setShowAnswer] = useState(false);
+  const [isCompleted, setIsCompleted] = useState(false);
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
   const toggleStep = (step: number) => {
@@ -905,6 +906,7 @@ export default function DailyRoutine() {
     setCurrentTheme(theme);
     setShowAnswer(false);
     setWritingText("");
+    setIsCompleted(false);
   };
 
   const handleChipClick = (themeKey: string) => {
@@ -1268,7 +1270,7 @@ export default function DailyRoutine() {
       </div>
 
       {/* Today's Speaking Mission */}
-      <div className="p-4 rounded-xl bg-[#3E2723] text-[#EFEBE9] dark:bg-[#1A1614] dark:border dark:border-[#3E2723] text-left font-mono text-xs sm:text-sm space-y-2 shadow-md">
+      <div className="p-4 rounded-xl bg-[#3E2723] text-[#EFEBE9] dark:bg-[#1A1614] dark:border dark:border-[#3E2723] text-left font-mono text-xs sm:text-sm space-y-2.5 shadow-md">
         <div className="flex items-center justify-between text-[#BCAAA4] border-b border-[#5D4037] pb-2">
           <span className="font-bold text-[#EFEBE9]">
             Today&apos;s Speaking Mission
@@ -1277,12 +1279,41 @@ export default function DailyRoutine() {
             오늘의 한 줄 스피킹 미션
           </span>
         </div>
-        <p className="text-amber-400 font-semibold text-sm sm:text-base select-all">
-          &ldquo;{currentTheme.missionEn}&rdquo;
-        </p>
+        <div className="flex items-start justify-between gap-3">
+          <p className="text-amber-400 font-semibold text-sm sm:text-base select-all">
+            &ldquo;{currentTheme.missionEn}&rdquo;
+          </p>
+          <button
+            type="button"
+            onClick={() => handleSpeak(currentTheme.missionEn)}
+            className="shrink-0 inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-[#1B4D3E] dark:bg-[#2D6A4F] text-white font-sans text-xs font-semibold shadow-xs hover:bg-[#153D31] active:scale-95 transition cursor-pointer"
+          >
+            듣기 🔊
+          </button>
+        </div>
         <p className="text-xs text-[#D7CCC8] font-sans">
           (소리 내어 3번 읽어보세요! 입술 근육이 기억합니다.)
         </p>
+      </div>
+
+      {/* Routine Completion Check Button */}
+      <div className="flex justify-center">
+        <button
+          type="button"
+          onClick={() => setIsCompleted((prev) => !prev)}
+          aria-pressed={isCompleted}
+          className={`inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-full text-sm sm:text-base font-bold border transition cursor-pointer ${
+            isCompleted
+              ? "bg-[#C84726]/10 dark:bg-[#C84726]/20 border-[#C84726] text-[#C84726] shadow-xs"
+              : "bg-white/70 dark:bg-[#3E2723]/40 border-[#D5CABD] dark:border-[#4A3B32] text-[#5D4037] dark:text-[#D7CCC8] hover:border-[#C84726] hover:text-[#C84726]"
+          }`}
+        >
+          {isCompleted ? (
+            <span>✅ 오늘의 30분 영어 루틴을 완료했어요! 🎉</span>
+          ) : (
+            <span>☐ 오늘의 30분 영어 루틴 완료 체크하기</span>
+          )}
+        </button>
       </div>
     </div>
   );
