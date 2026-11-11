@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 
 const inputClass =
-  "w-full rounded-xl border border-[#D5CABD] dark:border-[#4A3B32] bg-white/70 dark:bg-[#1A1614]/60 px-4 py-3 text-sm sm:text-base text-[#3E2723] dark:text-[#EFEBE9] placeholder:text-[#A1887F] shadow-sm outline-none transition focus:border-[#1B4D3E] dark:focus:border-[#2D6A4F] focus:ring-4 focus:ring-[#1B4D3E]/15 dark:focus:ring-[#2D6A4F]/25 aria-[invalid=true]:border-[#C84726]";
+  "w-full rounded-md border border-[#E9E9E7] dark:border-[#373737] bg-[#FFFFFF] dark:bg-[#191919] px-3.5 py-2.5 text-sm text-[#37352F] dark:text-[#FFFFFFCF] placeholder:text-[#9B9A97] outline-none transition focus:border-[#2383E2] focus:ring-2 focus:ring-[#2383E2]/20 aria-[invalid=true]:border-[#EB5757]";
 
 export default function ContactForm() {
   const [isOpen, setIsOpen] = useState(false);
@@ -13,7 +13,11 @@ export default function ContactForm() {
   const [pending, setPending] = useState(false);
   const [status, setStatus] = useState<"idle" | "success" | "error">("idle");
   const [feedbackMessage, setFeedbackMessage] = useState("");
-  const [errors, setErrors] = useState<{ name?: string; email?: string; message?: string }>({});
+  const [errors, setErrors] = useState<{
+    name?: string;
+    email?: string;
+    message?: string;
+  }>({});
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -56,12 +60,15 @@ export default function ContactForm() {
         setStatus("error");
         const errMsg =
           data?.error ||
-          (typeof data === "string" ? data : `오류가 발생했습니다 (${res.status})`);
+          (typeof data === "string"
+            ? data
+            : `오류가 발생했습니다 (${res.status})`);
         setFeedbackMessage(errMsg);
       }
     } catch (err: unknown) {
       setStatus("error");
-      const errMsg = err instanceof Error ? err.message : "전송 중 오류가 발생했습니다.";
+      const errMsg =
+        err instanceof Error ? err.message : "전송 중 오류가 발생했습니다.";
       setFeedbackMessage(errMsg);
     } finally {
       setPending(false);
@@ -77,16 +84,18 @@ export default function ContactForm() {
 
   if (!isOpen) {
     return (
-      <div className="pt-2 flex justify-center w-full">
+      <div className="pt-2 border-t border-[#E9E9E7] dark:border-[#2F2F2F] flex justify-center w-full">
         <button
           id="open-contact-button"
           type="button"
           onClick={() => setIsOpen(true)}
-          className="group inline-flex items-center justify-center gap-2 rounded-xl bg-[#1B4D3E] dark:bg-[#2D6A4F] px-8 py-3.5 text-base sm:text-lg font-bold text-white shadow-md transition hover:-translate-y-0.5 hover:bg-[#153D31] hover:shadow-lg active:translate-y-0"
+          className="group mt-4 inline-flex items-center justify-center gap-2 rounded-md bg-[#37352F] dark:bg-[#FFFFFFCF] px-5 py-2.5 text-sm font-medium text-white dark:text-[#191919] transition hover:bg-[#2F2D28] dark:hover:bg-white cursor-pointer"
         >
-          <span className="text-xl">✉️</span>
+          <span>✉️</span>
           <span>문의사항 남기기</span>
-          <span className="transition-transform group-hover:translate-x-1">→</span>
+          <span className="transition-transform group-hover:translate-x-0.5">
+            →
+          </span>
         </button>
       </div>
     );
@@ -96,24 +105,24 @@ export default function ContactForm() {
     <section
       id="contact"
       aria-labelledby="contact-title"
-      className="w-full text-left rounded-2xl border border-[#D5CABD] dark:border-[#4A3B32] bg-white/50 dark:bg-[#3E2723]/30 backdrop-blur-sm p-5 sm:p-8 shadow-md transition-all"
+      className="w-full text-left rounded-lg border border-[#E9E9E7] dark:border-[#2F2F2F] bg-[#F7F6F3] dark:bg-[#202020] p-5 sm:p-6 transition-all"
     >
-      <div className="mb-6 flex items-start justify-between gap-4">
-        <div className="space-y-1">
+      <div className="mb-5 flex items-start justify-between gap-4 border-b border-[#E9E9E7] dark:border-[#2F2F2F] pb-3.5">
+        <div className="space-y-0.5">
           <h2
             id="contact-title"
-            className="text-xl sm:text-2xl font-black tracking-tight text-[#3E2723] dark:text-[#EFEBE9]"
+            className="text-base sm:text-lg font-semibold tracking-tight text-[#37352F] dark:text-[#FFFFFFCF]"
           >
             문의사항 남기기
           </h2>
-          <p className="text-sm text-[#795548] dark:text-[#BCAAA4]">
+          <p className="text-xs sm:text-sm text-[#787774] dark:text-[#9B9A97]">
             궁금한 점이나 하고 싶은 말을 자유롭게 남겨 주세요.
           </p>
         </div>
         <button
           type="button"
           onClick={() => setIsOpen(false)}
-          className="text-xs sm:text-sm font-semibold text-[#795548] dark:text-[#BCAAA4] hover:text-[#3E2723] dark:hover:text-[#EFEBE9] px-3 py-1.5 rounded-lg border border-[#D5CABD] dark:border-[#4A3B32] hover:bg-black/5 dark:hover:bg-white/5 transition shrink-0"
+          className="text-xs font-medium text-[#787774] dark:text-[#9B9A97] hover:text-[#37352F] dark:hover:text-[#FFFFFFCF] px-2.5 py-1 rounded-md border border-[#E9E9E7] dark:border-[#373737] bg-[#FFFFFF] dark:bg-[#252525] hover:bg-[#F1F1EF] dark:hover:bg-[#2F2F2F] transition shrink-0 cursor-pointer"
         >
           닫기 ✕
         </button>
@@ -122,7 +131,10 @@ export default function ContactForm() {
       <form onSubmit={handleSubmit} noValidate className="space-y-4">
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div className="space-y-1.5">
-            <label htmlFor="contact-name" className="text-sm font-bold text-[#4A3B32] dark:text-[#D7CCC8]">
+            <label
+              htmlFor="contact-name"
+              className="text-xs sm:text-sm font-medium text-[#37352F] dark:text-[#FFFFFFCF]"
+            >
               이름
             </label>
             <input
@@ -134,7 +146,8 @@ export default function ContactForm() {
               value={name}
               onChange={(e) => {
                 setName(e.target.value);
-                if (errors.name) setErrors((prev) => ({ ...prev, name: undefined }));
+                if (errors.name)
+                  setErrors((prev) => ({ ...prev, name: undefined }));
               }}
               placeholder="홍길동"
               required
@@ -142,13 +155,19 @@ export default function ContactForm() {
               aria-describedby="contact-name-error"
               className={inputClass}
             />
-            <p id="contact-name-error" className="min-h-4 text-xs text-[#C84726]">
+            <p
+              id="contact-name-error"
+              className="min-h-4 text-xs text-[#EB5757]"
+            >
               {errors.name}
             </p>
           </div>
 
           <div className="space-y-1.5">
-            <label htmlFor="contact-email" className="text-sm font-bold text-[#4A3B32] dark:text-[#D7CCC8]">
+            <label
+              htmlFor="contact-email"
+              className="text-xs sm:text-sm font-medium text-[#37352F] dark:text-[#FFFFFFCF]"
+            >
               이메일
             </label>
             <input
@@ -159,7 +178,8 @@ export default function ContactForm() {
               value={email}
               onChange={(e) => {
                 setEmail(e.target.value);
-                if (errors.email) setErrors((prev) => ({ ...prev, email: undefined }));
+                if (errors.email)
+                  setErrors((prev) => ({ ...prev, email: undefined }));
               }}
               placeholder="you@example.com"
               required
@@ -167,7 +187,10 @@ export default function ContactForm() {
               aria-describedby="contact-email-error"
               className={inputClass}
             />
-            <p id="contact-email-error" className="min-h-4 text-xs text-[#C84726]">
+            <p
+              id="contact-email-error"
+              className="min-h-4 text-xs text-[#EB5757]"
+            >
               {errors.email}
             </p>
           </div>
@@ -175,17 +198,23 @@ export default function ContactForm() {
 
         <div className="space-y-1.5">
           <div className="flex items-center justify-between">
-            <label htmlFor="contact-message" className="text-sm font-bold text-[#4A3B32] dark:text-[#D7CCC8]">
+            <label
+              htmlFor="contact-message"
+              className="text-xs sm:text-sm font-medium text-[#37352F] dark:text-[#FFFFFFCF]"
+            >
               문의 내용
             </label>
-            <span className="text-xs text-[#A1887F] tabular-nums">{message.length} / 1000</span>
+            <span className="text-xs text-[#787774] tabular-nums">
+              {message.length} / 1000
+            </span>
           </div>
           <textarea
             id="contact-message"
             value={message}
             onChange={(e) => {
               setMessage(e.target.value);
-              if (errors.message) setErrors((prev) => ({ ...prev, message: undefined }));
+              if (errors.message)
+                setErrors((prev) => ({ ...prev, message: undefined }));
             }}
             name="message"
             rows={5}
@@ -194,9 +223,12 @@ export default function ContactForm() {
             required
             aria-invalid={!!errors.message}
             aria-describedby="contact-message-error"
-            className={`${inputClass} resize-y min-h-32`}
+            className={`${inputClass} resize-y min-h-28`}
           />
-          <p id="contact-message-error" className="min-h-4 text-xs text-[#C84726]">
+          <p
+            id="contact-message-error"
+            className="min-h-4 text-xs text-[#EB5757]"
+          >
             {errors.message}
           </p>
         </div>
@@ -206,8 +238,8 @@ export default function ContactForm() {
             aria-live="polite"
             className={`text-sm font-medium ${
               status === "success"
-                ? "text-[#1B4D3E] dark:text-[#52B788]"
-                : "text-[#C84726]"
+                ? "text-[#448361] dark:text-[#65A983]"
+                : "text-[#EB5757]"
             }`}
           >
             {feedbackMessage}
@@ -216,7 +248,7 @@ export default function ContactForm() {
             id="contact-submit"
             type="submit"
             disabled={pending}
-            className="group inline-flex items-center justify-center gap-2 rounded-xl bg-[#1B4D3E] dark:bg-[#2D6A4F] px-6 py-3 text-sm sm:text-base font-bold text-white shadow-md transition hover:-translate-y-0.5 hover:bg-[#153D31] hover:shadow-lg active:translate-y-0 disabled:cursor-not-allowed disabled:opacity-60 disabled:hover:translate-y-0"
+            className="group inline-flex items-center justify-center gap-2 rounded-md bg-[#37352F] dark:bg-[#FFFFFFCF] px-5 py-2.5 text-sm font-medium text-white dark:text-[#191919] transition hover:bg-[#2F2D28] dark:hover:bg-white disabled:cursor-not-allowed disabled:opacity-60 cursor-pointer"
           >
             {pending ? (
               <>
@@ -226,7 +258,9 @@ export default function ContactForm() {
             ) : (
               <>
                 문의 보내기
-                <span className="transition-transform group-hover:translate-x-1">→</span>
+                <span className="transition-transform group-hover:translate-x-0.5">
+                  →
+                </span>
               </>
             )}
           </button>

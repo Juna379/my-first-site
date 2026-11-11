@@ -889,7 +889,9 @@ export default function DailyRoutine() {
     PRESET_THEMES.coffee
   );
   const [keywordInput, setKeywordInput] = useState("");
-  const [openSteps, setOpenSteps] = useState<Record<number, boolean>>({});
+  const [openSteps, setOpenSteps] = useState<Record<number, boolean>>({
+    1: true,
+  });
   const [writingText, setWritingText] = useState("");
   const [showAnswer, setShowAnswer] = useState(false);
   const [isCompleted, setIsCompleted] = useState(false);
@@ -915,6 +917,7 @@ export default function DailyRoutine() {
       themeKey === "coffee" ? "" : theme.chipLabel.replace(/^[^\s]+\s/, "")
     );
     applyTheme(theme);
+    setOpenSteps((prev) => ({ ...prev, 1: true }));
   };
 
   const handleGenerateSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -974,21 +977,21 @@ export default function DailyRoutine() {
   };
 
   return (
-    <div className="space-y-8 sm:space-y-10">
-      {/* Keyword Input & Recommended Chips Section */}
-      <section className="p-5 sm:p-6 rounded-2xl border border-[#D5CABD] dark:border-[#4A3B32] bg-white/60 dark:bg-[#3E2723]/30 backdrop-blur-sm shadow-sm text-left space-y-4">
-        <div className="space-y-1 text-center sm:text-left">
-          <h2 className="text-base sm:text-lg font-bold text-[#3E2723] dark:text-[#EFEBE9]">
+    <div className="space-y-6">
+      {/* Keyword Input & Recommended Chips Section (Notion Database Property Block Style) */}
+      <section className="p-4 sm:p-5 rounded-lg border border-[#E9E9E7] dark:border-[#2F2F2F] bg-[#F7F6F3] dark:bg-[#202020] text-left space-y-3.5">
+        <div className="space-y-0.5">
+          <h2 className="text-sm sm:text-base font-semibold text-[#37352F] dark:text-[#FFFFFFCF]">
             오늘의 일상 키워드를 들려주세요
           </h2>
-          <p className="text-xs sm:text-sm text-[#795548] dark:text-[#BCAAA4]">
+          <p className="text-xs sm:text-sm text-[#787774] dark:text-[#9B9A97]">
             나만의 소소한 하루가 맞춤형 영어 회화 루틴으로 바뀝니다.
           </p>
         </div>
 
         <form
           onSubmit={handleGenerateSubmit}
-          className="flex flex-col sm:flex-row gap-2.5"
+          className="flex flex-col sm:flex-row gap-2"
         >
           <input
             type="text"
@@ -996,18 +999,18 @@ export default function DailyRoutine() {
             onChange={(e) => setKeywordInput(e.target.value)}
             placeholder="예: 남편 생일 저녁 준비, 주말 브런치 카페, 강아지 산책..."
             aria-label="일상 키워드 입력"
-            className="flex-1 rounded-xl border border-[#D5CABD] dark:border-[#4A3B32] bg-white/80 dark:bg-[#1A1614]/60 px-4 py-2.5 text-sm text-[#3E2723] dark:text-[#EFEBE9] placeholder:text-[#A1887F] shadow-xs outline-none transition focus:border-[#1B4D3E] dark:focus:border-[#2D6A4F] focus:ring-3 focus:ring-[#1B4D3E]/15 dark:focus:ring-[#2D6A4F]/25"
+            className="flex-1 rounded-md border border-[#E9E9E7] dark:border-[#373737] bg-[#FFFFFF] dark:bg-[#191919] px-3.5 py-2 text-sm text-[#37352F] dark:text-[#FFFFFFCF] placeholder:text-[#9B9A97] outline-none transition focus:border-[#2383E2] focus:ring-2 focus:ring-[#2383E2]/20"
           />
           <button
             type="submit"
-            className="shrink-0 inline-flex items-center justify-center gap-1.5 rounded-xl bg-[#1B4D3E] dark:bg-[#2D6A4F] px-5 py-2.5 text-sm font-bold text-white shadow-sm transition hover:bg-[#153D31] active:scale-[0.99] cursor-pointer"
+            className="shrink-0 inline-flex items-center justify-center gap-1.5 rounded-md bg-[#37352F] dark:bg-[#FFFFFFCF] px-4 py-2 text-sm font-medium text-white dark:text-[#191919] transition hover:bg-[#2F2D28] dark:hover:bg-white cursor-pointer"
           >
             <span>30분 루틴 생성</span>
             <span>🪄</span>
           </button>
         </form>
 
-        <div className="flex flex-wrap gap-2 pt-0.5">
+        <div className="flex flex-wrap gap-1.5 pt-0.5">
           {CHIP_ORDER.map((key) => {
             const item = PRESET_THEMES[key];
             const isSelected = currentTheme.id === item.id;
@@ -1016,10 +1019,10 @@ export default function DailyRoutine() {
                 key={item.id}
                 type="button"
                 onClick={() => handleChipClick(key)}
-                className={`px-3 py-1.5 rounded-full text-xs font-medium border transition cursor-pointer ${
+                className={`px-2.5 py-1 rounded-md text-xs font-medium border transition cursor-pointer ${
                   isSelected
-                    ? "bg-[#1B4D3E] dark:bg-[#2D6A4F] text-white border-[#1B4D3E] dark:border-[#2D6A4F] shadow-xs"
-                    : "bg-[#F5F1E7]/80 dark:bg-[#1A1614]/50 text-[#5D4037] dark:text-[#D7CCC8] border-[#D5CABD] dark:border-[#4A3B32] hover:border-[#8D6E63] dark:hover:border-[#8D6E63]"
+                    ? "bg-[#37352F] dark:bg-[#FFFFFFCF] text-white dark:text-[#191919] border-[#37352F] dark:border-[#FFFFFFCF]"
+                    : "bg-[#FFFFFF] dark:bg-[#252525] text-[#37352F] dark:text-[#FFFFFFCF] border-[#E9E9E7] dark:border-[#373737] hover:bg-[#F1F1EF] dark:hover:bg-[#2F2F2F]"
                 }`}
               >
                 {item.chipLabel}
@@ -1029,34 +1032,34 @@ export default function DailyRoutine() {
         </div>
       </section>
 
-      {/* 3-Step Accordion Cards */}
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-left">
+      {/* 3-Step Accordion Cards (Notion Toggle Card Style) */}
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5 text-left">
         {/* Card 1 Trigger */}
         <button
           type="button"
           onClick={() => toggleStep(1)}
           aria-expanded={!!openSteps[1]}
-          className={`sm:order-1 w-full p-4 rounded-xl border text-left transition flex flex-col justify-between cursor-pointer ${
+          className={`sm:order-1 w-full p-3.5 rounded-lg border text-left transition flex flex-col justify-between cursor-pointer ${
             openSteps[1]
-              ? "border-[#1B4D3E] dark:border-[#2D6A4F] bg-white/80 dark:bg-[#3E2723]/50 shadow-md"
-              : "border-[#D5CABD] dark:border-[#4A3B32] bg-white/50 dark:bg-[#3E2723]/30 shadow-sm hover:border-[#8D6E63] dark:hover:border-[#8D6E63]"
+              ? "border-[#37352F]/40 dark:border-[#FFFFFFCF]/40 bg-[#F7F6F3] dark:bg-[#252525]"
+              : "border-[#E9E9E7] dark:border-[#2F2F2F] bg-[#FFFFFF] dark:bg-[#202020] hover:bg-[#F7F6F3] dark:hover:bg-[#252525]"
           }`}
         >
           <div className="flex items-start justify-between gap-2 w-full">
-            <p className="text-sm font-bold text-[#3E2723] dark:text-[#EFEBE9]">
+            <p className="text-sm font-semibold text-[#37352F] dark:text-[#FFFFFFCF]">
               Step 1. Speaking (15분)
             </p>
             <span
-              className={`text-xs text-[#795548] dark:text-[#BCAAA4] transition-transform duration-200 shrink-0 mt-0.5 ${
+              className={`text-[11px] text-[#787774] dark:text-[#9B9A97] transition-transform duration-200 shrink-0 mt-0.5 ${
                 openSteps[1]
-                  ? "rotate-180 text-[#1B4D3E] dark:text-[#52B788]"
+                  ? "rotate-180 text-[#37352F] dark:text-[#FFFFFFCF]"
                   : ""
               }`}
             >
               ▼
             </span>
           </div>
-          <p className="text-xs text-[#795548] dark:text-[#BCAAA4] mt-1">
+          <p className="text-xs text-[#787774] dark:text-[#9B9A97] mt-1">
             일상 대화 티키타카
           </p>
         </button>
@@ -1065,26 +1068,26 @@ export default function DailyRoutine() {
         <div
           className={`${
             openSteps[1] ? "block" : "hidden"
-          } sm:order-4 sm:col-span-3 p-5 rounded-xl border border-[#D5CABD] dark:border-[#4A3B32] bg-white/75 dark:bg-[#3E2723]/40 shadow-sm space-y-4`}
+          } sm:order-4 sm:col-span-3 p-4 sm:p-5 rounded-lg border border-[#E9E9E7] dark:border-[#2F2F2F] bg-[#FFFFFF] dark:bg-[#202020] space-y-4`}
         >
-          <div className="border-b border-[#D5CABD]/70 dark:border-[#4A3B32] pb-2.5">
-            <span className="text-[11px] font-bold text-[#1B4D3E] dark:text-[#52B788] uppercase tracking-wider">
+          <div className="border-b border-[#E9E9E7] dark:border-[#2F2F2F] pb-2.5">
+            <span className="inline-block px-2 py-0.5 rounded-sm bg-[#EDF3EC] dark:bg-[#24382B] text-[11px] font-semibold text-[#448361] dark:text-[#65A983] uppercase tracking-wider">
               STEP 1 · SPEAKING
             </span>
-            <h3 className="text-sm sm:text-base font-bold text-[#3E2723] dark:text-[#EFEBE9] mt-0.5">
+            <h3 className="text-sm sm:text-base font-semibold text-[#37352F] dark:text-[#FFFFFFCF] mt-1.5">
               {currentTheme.step1Title}
             </h3>
           </div>
 
-          <div className="space-y-3">
+          <div className="space-y-2.5">
             {currentTheme.dialogues.map((line, idx) => (
               <div
                 key={idx}
-                className="p-3 rounded-lg bg-[#F5F1E7]/70 dark:bg-[#1A1614]/50 border border-[#D5CABD]/60 dark:border-[#4A3B32]/60 space-y-1"
+                className="p-3 rounded-md bg-[#F7F6F3] dark:bg-[#191919] border border-[#E9E9E7] dark:border-[#2F2F2F] space-y-1 transition-colors hover:bg-[#F1F1EF] dark:hover:bg-[#252525]"
               >
                 <div className="flex items-start justify-between gap-2">
-                  <p className="text-sm sm:text-base font-semibold text-[#3E2723] dark:text-[#EFEBE9]">
-                    <span className="text-[#1B4D3E] dark:text-[#52B788] font-bold mr-1.5">
+                  <p className="text-sm sm:text-[15px] font-medium text-[#37352F] dark:text-[#FFFFFFCF]">
+                    <span className="text-[#448361] dark:text-[#65A983] font-semibold mr-1.5">
                       {line.speaker}:
                     </span>
                     {line.en}
@@ -1092,12 +1095,12 @@ export default function DailyRoutine() {
                   <button
                     type="button"
                     onClick={() => handleSpeak(line.en)}
-                    className="shrink-0 inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-[#1B4D3E] dark:bg-[#2D6A4F] text-white text-xs font-semibold shadow-xs hover:bg-[#153D31] active:scale-95 transition cursor-pointer"
+                    className="shrink-0 inline-flex items-center gap-1 px-2.5 py-1 rounded-md border border-[#E9E9E7] dark:border-[#373737] bg-[#FFFFFF] dark:bg-[#252525] text-[#37352F] dark:text-[#FFFFFFCF] text-xs font-medium hover:bg-[#F1F1EF] dark:hover:bg-[#2F2F2F] active:scale-95 transition cursor-pointer"
                   >
                     듣기 🔊
                   </button>
                 </div>
-                <p className="text-xs sm:text-sm text-[#795548] dark:text-[#BCAAA4]">
+                <p className="text-xs sm:text-sm text-[#787774] dark:text-[#9B9A97]">
                   {line.ko}
                 </p>
               </div>
@@ -1110,27 +1113,27 @@ export default function DailyRoutine() {
           type="button"
           onClick={() => toggleStep(2)}
           aria-expanded={!!openSteps[2]}
-          className={`sm:order-2 w-full p-4 rounded-xl border text-left transition flex flex-col justify-between cursor-pointer ${
+          className={`sm:order-2 w-full p-3.5 rounded-lg border text-left transition flex flex-col justify-between cursor-pointer ${
             openSteps[2]
-              ? "border-[#1B4D3E] dark:border-[#2D6A4F] bg-white/80 dark:bg-[#3E2723]/50 shadow-md"
-              : "border-[#D5CABD] dark:border-[#4A3B32] bg-white/50 dark:bg-[#3E2723]/30 shadow-sm hover:border-[#8D6E63] dark:hover:border-[#8D6E63]"
+              ? "border-[#37352F]/40 dark:border-[#FFFFFFCF]/40 bg-[#F7F6F3] dark:bg-[#252525]"
+              : "border-[#E9E9E7] dark:border-[#2F2F2F] bg-[#FFFFFF] dark:bg-[#202020] hover:bg-[#F7F6F3] dark:hover:bg-[#252525]"
           }`}
         >
           <div className="flex items-start justify-between gap-2 w-full">
-            <p className="text-sm font-bold text-[#3E2723] dark:text-[#EFEBE9]">
+            <p className="text-sm font-semibold text-[#37352F] dark:text-[#FFFFFFCF]">
               Step 2. Reading &amp; Writing (7분)
             </p>
             <span
-              className={`text-xs text-[#795548] dark:text-[#BCAAA4] transition-transform duration-200 shrink-0 mt-0.5 ${
+              className={`text-[11px] text-[#787774] dark:text-[#9B9A97] transition-transform duration-200 shrink-0 mt-0.5 ${
                 openSteps[2]
-                  ? "rotate-180 text-[#1B4D3E] dark:text-[#52B788]"
+                  ? "rotate-180 text-[#37352F] dark:text-[#FFFFFFCF]"
                   : ""
               }`}
             >
               ▼
             </span>
           </div>
-          <p className="text-xs text-[#795548] dark:text-[#BCAAA4] mt-1">
+          <p className="text-xs text-[#787774] dark:text-[#9B9A97] mt-1">
             오늘의 1분 미니 에세이
           </p>
         </button>
@@ -1139,23 +1142,23 @@ export default function DailyRoutine() {
         <div
           className={`${
             openSteps[2] ? "block" : "hidden"
-          } sm:order-5 sm:col-span-3 p-5 rounded-xl border border-[#D5CABD] dark:border-[#4A3B32] bg-white/75 dark:bg-[#3E2723]/40 shadow-sm space-y-4`}
+          } sm:order-5 sm:col-span-3 p-4 sm:p-5 rounded-lg border border-[#E9E9E7] dark:border-[#2F2F2F] bg-[#FFFFFF] dark:bg-[#202020] space-y-4`}
         >
-          <div className="border-b border-[#D5CABD]/70 dark:border-[#4A3B32] pb-2">
-            <span className="text-[11px] font-bold text-[#1B4D3E] dark:text-[#52B788] uppercase tracking-wider">
+          <div className="border-b border-[#E9E9E7] dark:border-[#2F2F2F] pb-2.5">
+            <span className="inline-block px-2 py-0.5 rounded-sm bg-[#E7F3F8] dark:bg-[#1E323D] text-[11px] font-semibold text-[#2383E2] dark:text-[#529CCA] uppercase tracking-wider">
               STEP 2 · READING &amp; WRITING
             </span>
-            <h3 className="text-sm sm:text-base font-bold text-[#3E2723] dark:text-[#EFEBE9] mt-0.5">
+            <h3 className="text-sm sm:text-base font-semibold text-[#37352F] dark:text-[#FFFFFFCF] mt-1.5">
               오늘의 1분 미니 에세이
             </h3>
           </div>
 
           {/* 1. Korean Prompt First */}
-          <div className="p-3.5 rounded-lg bg-[#F5F1E7]/70 dark:bg-[#1A1614]/50 border border-[#D5CABD]/60 dark:border-[#4A3B32]/60 space-y-1">
-            <span className="text-[11px] font-semibold text-[#795548] dark:text-[#BCAAA4]">
+          <div className="p-3.5 rounded-md bg-[#F7F6F3] dark:bg-[#191919] border border-[#E9E9E7] dark:border-[#2F2F2F] space-y-1">
+            <span className="text-[11px] font-medium text-[#787774] dark:text-[#9B9A97]">
               오늘의 한글 문장
             </span>
-            <p className="text-sm sm:text-base font-semibold leading-relaxed text-[#3E2723] dark:text-[#EFEBE9] break-keep">
+            <p className="text-sm sm:text-[15px] font-medium leading-relaxed text-[#37352F] dark:text-[#FFFFFFCF] break-keep">
               &ldquo;{currentTheme.essayKo}&rdquo;
             </p>
           </div>
@@ -1168,7 +1171,7 @@ export default function DailyRoutine() {
               onChange={(e) => setWritingText(e.target.value)}
               placeholder="한글을 보고 영어로 먼저 써보세요. (생각만 해보고 정답을 열어보셔도 좋아요!)"
               aria-label="영작 연습 입력란"
-              className="w-full rounded-xl border border-[#D5CABD] dark:border-[#4A3B32] bg-white/80 dark:bg-[#1A1614]/60 px-3.5 py-2.5 text-sm text-[#3E2723] dark:text-[#EFEBE9] placeholder:text-[#A1887F] shadow-xs outline-none transition focus:border-[#1B4D3E] dark:focus:border-[#2D6A4F] focus:ring-3 focus:ring-[#1B4D3E]/15 dark:focus:ring-[#2D6A4F]/25 resize-y"
+              className="w-full rounded-md border border-[#E9E9E7] dark:border-[#373737] bg-[#FFFFFF] dark:bg-[#191919] px-3.5 py-2.5 text-sm text-[#37352F] dark:text-[#FFFFFFCF] placeholder:text-[#9B9A97] outline-none transition focus:border-[#2383E2] focus:ring-2 focus:ring-[#2383E2]/20 resize-y"
             />
 
             {/* 3. Toggle Answer Button */}
@@ -1176,7 +1179,7 @@ export default function DailyRoutine() {
               <button
                 type="button"
                 onClick={() => setShowAnswer((prev) => !prev)}
-                className="inline-flex items-center gap-1.5 rounded-xl bg-[#1B4D3E] dark:bg-[#2D6A4F] px-4 py-2 text-xs sm:text-sm font-bold text-white shadow-xs transition hover:bg-[#153D31] active:scale-[0.99] cursor-pointer"
+                className="inline-flex items-center gap-1.5 rounded-md border border-[#E9E9E7] dark:border-[#373737] bg-[#F7F6F3] dark:bg-[#252525] px-3.5 py-1.5 text-xs sm:text-sm font-medium text-[#37352F] dark:text-[#FFFFFFCF] transition hover:bg-[#F1F1EF] dark:hover:bg-[#2F2F2F] cursor-pointer"
               >
                 <span>정답 영문 확인하기 👁️</span>
               </button>
@@ -1187,21 +1190,21 @@ export default function DailyRoutine() {
           <div
             className={`${
               showAnswer ? "block" : "hidden"
-            } p-4 rounded-xl bg-[#F5F1E7] dark:bg-[#1A1614]/70 border border-[#1B4D3E]/30 dark:border-[#2D6A4F]/50 space-y-2.5 transition-all`}
+            } p-4 rounded-md bg-[#F7F6F3] dark:bg-[#191919] border-l-3 border-l-[#37352F] dark:border-l-[#FFFFFFCF] border border-[#E9E9E7] dark:border-[#2F2F2F] space-y-2 transition-all`}
           >
             <div className="flex items-center justify-between gap-2">
-              <span className="text-xs font-bold text-[#1B4D3E] dark:text-[#52B788]">
+              <span className="text-xs font-semibold text-[#787774] dark:text-[#9B9A97]">
                 추천 영문 정답
               </span>
               <button
                 type="button"
                 onClick={() => handleSpeak(currentTheme.essayEn)}
-                className="shrink-0 inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-[#1B4D3E] dark:bg-[#2D6A4F] text-white text-xs font-semibold shadow-xs hover:bg-[#153D31] active:scale-95 transition cursor-pointer"
+                className="shrink-0 inline-flex items-center gap-1 px-2.5 py-1 rounded-md border border-[#E9E9E7] dark:border-[#373737] bg-[#FFFFFF] dark:bg-[#252525] text-[#37352F] dark:text-[#FFFFFFCF] text-xs font-medium hover:bg-[#F1F1EF] dark:hover:bg-[#2F2F2F] active:scale-95 transition cursor-pointer"
               >
                 듣기 🔊
               </button>
             </div>
-            <p className="text-sm sm:text-base font-semibold leading-relaxed text-[#3E2723] dark:text-[#EFEBE9]">
+            <p className="text-sm sm:text-[15px] font-medium leading-relaxed text-[#37352F] dark:text-[#FFFFFFCF]">
               &ldquo;{currentTheme.essayEn}&rdquo;
             </p>
           </div>
@@ -1212,27 +1215,27 @@ export default function DailyRoutine() {
           type="button"
           onClick={() => toggleStep(3)}
           aria-expanded={!!openSteps[3]}
-          className={`sm:order-3 w-full p-4 rounded-xl border text-left transition flex flex-col justify-between cursor-pointer ${
+          className={`sm:order-3 w-full p-3.5 rounded-lg border text-left transition flex flex-col justify-between cursor-pointer ${
             openSteps[3]
-              ? "border-[#1B4D3E] dark:border-[#2D6A4F] bg-white/80 dark:bg-[#3E2723]/50 shadow-md"
-              : "border-[#D5CABD] dark:border-[#4A3B32] bg-white/50 dark:bg-[#3E2723]/30 shadow-sm hover:border-[#8D6E63] dark:hover:border-[#8D6E63]"
+              ? "border-[#37352F]/40 dark:border-[#FFFFFFCF]/40 bg-[#F7F6F3] dark:bg-[#252525]"
+              : "border-[#E9E9E7] dark:border-[#2F2F2F] bg-[#FFFFFF] dark:bg-[#202020] hover:bg-[#F7F6F3] dark:hover:bg-[#252525]"
           }`}
         >
           <div className="flex items-start justify-between gap-2 w-full">
-            <p className="text-sm font-bold text-[#3E2723] dark:text-[#EFEBE9]">
+            <p className="text-sm font-semibold text-[#37352F] dark:text-[#FFFFFFCF]">
               Step 3. Vocab &amp; Expression (8분)
             </p>
             <span
-              className={`text-xs text-[#795548] dark:text-[#BCAAA4] transition-transform duration-200 shrink-0 mt-0.5 ${
+              className={`text-[11px] text-[#787774] dark:text-[#9B9A97] transition-transform duration-200 shrink-0 mt-0.5 ${
                 openSteps[3]
-                  ? "rotate-180 text-[#1B4D3E] dark:text-[#52B788]"
+                  ? "rotate-180 text-[#37352F] dark:text-[#FFFFFFCF]"
                   : ""
               }`}
             >
               ▼
             </span>
           </div>
-          <p className="text-xs text-[#795548] dark:text-[#BCAAA4] mt-1">
+          <p className="text-xs text-[#787774] dark:text-[#9B9A97] mt-1">
             오늘의 핵심 표현
           </p>
         </button>
@@ -1241,26 +1244,26 @@ export default function DailyRoutine() {
         <div
           className={`${
             openSteps[3] ? "block" : "hidden"
-          } sm:order-6 sm:col-span-3 p-5 rounded-xl border border-[#D5CABD] dark:border-[#4A3B32] bg-white/75 dark:bg-[#3E2723]/40 shadow-sm space-y-3`}
+          } sm:order-6 sm:col-span-3 p-4 sm:p-5 rounded-lg border border-[#E9E9E7] dark:border-[#2F2F2F] bg-[#FFFFFF] dark:bg-[#202020] space-y-3`}
         >
-          <div className="border-b border-[#D5CABD]/70 dark:border-[#4A3B32] pb-2">
-            <span className="text-[11px] font-bold text-[#1B4D3E] dark:text-[#52B788] uppercase tracking-wider">
+          <div className="border-b border-[#E9E9E7] dark:border-[#2F2F2F] pb-2.5">
+            <span className="inline-block px-2 py-0.5 rounded-sm bg-[#FBF3DB] dark:bg-[#3A311D] text-[11px] font-semibold text-[#CB912F] dark:text-[#E2B257] uppercase tracking-wider">
               STEP 3 · VOCAB &amp; EXPRESSION
             </span>
-            <h3 className="text-sm sm:text-base font-bold text-[#3E2723] dark:text-[#EFEBE9] mt-0.5">
+            <h3 className="text-sm sm:text-base font-semibold text-[#37352F] dark:text-[#FFFFFFCF] mt-1.5">
               오늘의 핵심 표현
             </h3>
           </div>
-          <ul className="space-y-2.5">
+          <ul className="space-y-2">
             {currentTheme.expressions.map((item, idx) => (
               <li
                 key={idx}
-                className="p-3 rounded-lg bg-[#F5F1E7]/70 dark:bg-[#1A1614]/50 border border-[#D5CABD]/60 dark:border-[#4A3B32]/60 text-xs sm:text-sm text-[#3E2723] dark:text-[#EFEBE9]"
+                className="p-3 rounded-md bg-[#F7F6F3] dark:bg-[#191919] border border-[#E9E9E7] dark:border-[#2F2F2F] text-xs sm:text-sm text-[#37352F] dark:text-[#FFFFFFCF] transition-colors hover:bg-[#F1F1EF] dark:hover:bg-[#252525]"
               >
-                <span className="font-bold text-[#1B4D3E] dark:text-[#52B788] mr-1.5">
+                <span className="font-semibold text-[#37352F] dark:text-[#FFFFFFCF] mr-1.5">
                   {item.num} {item.expr}
                 </span>
-                <span className="text-[#795548] dark:text-[#BCAAA4]">
+                <span className="text-[#787774] dark:text-[#9B9A97]">
                   : {item.meaning}
                 </span>
               </li>
@@ -1269,43 +1272,44 @@ export default function DailyRoutine() {
         </div>
       </div>
 
-      {/* Today's Speaking Mission */}
-      <div className="p-4 rounded-xl bg-[#3E2723] text-[#EFEBE9] dark:bg-[#1A1614] dark:border dark:border-[#3E2723] text-left font-mono text-xs sm:text-sm space-y-2.5 shadow-md">
-        <div className="flex items-center justify-between text-[#BCAAA4] border-b border-[#5D4037] pb-2">
-          <span className="font-bold text-[#EFEBE9]">
-            Today&apos;s Speaking Mission
+      {/* Today's Speaking Mission (Notion Callout Box Style) */}
+      <div className="p-4 sm:p-5 rounded-lg bg-[#F7F6F3] dark:bg-[#202020] border border-[#E9E9E7] dark:border-[#2F2F2F] text-left space-y-2.5">
+        <div className="flex items-center justify-between text-[#787774] dark:text-[#9B9A97] border-b border-[#E9E9E7] dark:border-[#2F2F2F] pb-2">
+          <span className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-semibold text-[#37352F] dark:text-[#FFFFFFCF]">
+            <span>🎯</span>
+            <span>Today&apos;s Speaking Mission</span>
           </span>
-          <span className="text-[11px] text-[#A1887F]">
+          <span className="text-[11px] text-[#787774] dark:text-[#9B9A97]">
             오늘의 한 줄 스피킹 미션
           </span>
         </div>
-        <div className="flex items-start justify-between gap-3">
-          <p className="text-amber-400 font-semibold text-sm sm:text-base select-all">
+        <div className="flex items-start justify-between gap-3 pt-0.5">
+          <p className="text-[#37352F] dark:text-[#FFFFFFCF] font-semibold text-sm sm:text-base select-all">
             &ldquo;{currentTheme.missionEn}&rdquo;
           </p>
           <button
             type="button"
             onClick={() => handleSpeak(currentTheme.missionEn)}
-            className="shrink-0 inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-[#1B4D3E] dark:bg-[#2D6A4F] text-white font-sans text-xs font-semibold shadow-xs hover:bg-[#153D31] active:scale-95 transition cursor-pointer"
+            className="shrink-0 inline-flex items-center gap-1 px-2.5 py-1 rounded-md border border-[#E9E9E7] dark:border-[#373737] bg-[#FFFFFF] dark:bg-[#252525] text-[#37352F] dark:text-[#FFFFFFCF] text-xs font-medium hover:bg-[#F1F1EF] dark:hover:bg-[#2F2F2F] active:scale-95 transition cursor-pointer"
           >
             듣기 🔊
           </button>
         </div>
-        <p className="text-xs text-[#D7CCC8] font-sans">
+        <p className="text-xs text-[#787774] dark:text-[#9B9A97]">
           (소리 내어 3번 읽어보세요! 입술 근육이 기억합니다.)
         </p>
       </div>
 
-      {/* Routine Completion Check Button */}
-      <div className="flex justify-center">
+      {/* Routine Completion Check Button (Notion To-do Block Style) */}
+      <div className="flex justify-center pt-1">
         <button
           type="button"
           onClick={() => setIsCompleted((prev) => !prev)}
           aria-pressed={isCompleted}
-          className={`inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-full text-sm sm:text-base font-bold border transition cursor-pointer ${
+          className={`inline-flex items-center justify-center gap-2 px-4 py-2 rounded-md text-sm font-medium border transition cursor-pointer ${
             isCompleted
-              ? "bg-[#C84726]/10 dark:bg-[#C84726]/20 border-[#C84726] text-[#C84726] shadow-xs"
-              : "bg-white/70 dark:bg-[#3E2723]/40 border-[#D5CABD] dark:border-[#4A3B32] text-[#5D4037] dark:text-[#D7CCC8] hover:border-[#C84726] hover:text-[#C84726]"
+              ? "bg-[#EDF3EC] dark:bg-[#24382B] border-[#448361]/40 text-[#448361] dark:text-[#65A983]"
+              : "bg-[#FFFFFF] dark:bg-[#202020] border-[#E9E9E7] dark:border-[#2F2F2F] text-[#37352F] dark:text-[#FFFFFFCF] hover:bg-[#F7F6F3] dark:hover:bg-[#252525]"
           }`}
         >
           {isCompleted ? (
