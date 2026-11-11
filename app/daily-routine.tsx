@@ -884,6 +884,15 @@ function buildRoutineFromKeyword(rawKeyword: string): RoutineTheme {
   return PRESET_THEMES.coffee;
 }
 
+function cleanExpressionForSpeech(expr: string): string {
+  return expr
+    .replace(/\+\s*-ing/gi, "")
+    .replace(/~/g, "")
+    .replace(/\//g, ", ")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
 export default function DailyRoutine() {
   const [currentTheme, setCurrentTheme] = useState<RoutineTheme>(
     PRESET_THEMES.coffee
@@ -895,6 +904,7 @@ export default function DailyRoutine() {
   const [writingText, setWritingText] = useState("");
   const [showAnswer, setShowAnswer] = useState(false);
   const [isCompleted, setIsCompleted] = useState(false);
+  const [playingText, setPlayingText] = useState<string | null>(null);
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
   const toggleStep = (step: number) => {
@@ -905,6 +915,13 @@ export default function DailyRoutine() {
   };
 
   const applyTheme = (theme: RoutineTheme) => {
+    if (audioRef.current) {
+      audioRef.current.pause();
+    }
+    if (typeof window !== "undefined" && "speechSynthesis" in window) {
+      window.speechSynthesis.cancel();
+    }
+    setPlayingText(null);
     setCurrentTheme(theme);
     setShowAnswer(false);
     setWritingText("");
@@ -929,6 +946,7 @@ export default function DailyRoutine() {
 
   const speakWithWebSpeech = (text: string) => {
     if (typeof window === "undefined" || !("speechSynthesis" in window)) {
+      setPlayingText(null);
       return;
     }
     window.speechSynthesis.cancel();
@@ -947,6 +965,8 @@ export default function DailyRoutine() {
       if (enVoice) {
         utterance.voice = enVoice;
       }
+      utterance.onend = () => setPlayingText(null);
+      utterance.onerror = () => setPlayingText(null);
       window.speechSynthesis.speak(utterance);
     }, 50);
   };
@@ -954,14 +974,29 @@ export default function DailyRoutine() {
   const handleSpeak = (text: string) => {
     if (typeof window === "undefined") return;
 
+    if (playingText === text) {
+      if (audioRef.current) {
+        audioRef.current.pause();
+      }
+      if ("speechSynthesis" in window) {
+        window.speechSynthesis.cancel();
+      }
+      setPlayingText(null);
+      return;
+    }
+
     if ("speechSynthesis" in window) {
       window.speechSynthesis.cancel();
     }
+
+    setPlayingText(text);
 
     try {
       const audio = audioRef.current ?? new Audio();
       audioRef.current = audio;
       audio.pause();
+      audio.onended = () => setPlayingText(null);
+      audio.onerror = () => speakWithWebSpeech(text);
       audio.src = `/api/tts?text=${encodeURIComponent(text)}`;
       audio.currentTime = 0;
 
@@ -1095,9 +1130,13 @@ export default function DailyRoutine() {
                   <button
                     type="button"
                     onClick={() => handleSpeak(line.en)}
-                    className="shrink-0 inline-flex items-center gap-1 px-2.5 py-1 rounded-md border border-[#E9E9E7] dark:border-[#373737] bg-[#FFFFFF] dark:bg-[#252525] text-[#37352F] dark:text-[#FFFFFFCF] text-xs font-medium hover:bg-[#F1F1EF] dark:hover:bg-[#2F2F2F] active:scale-95 transition cursor-pointer"
+                    className={`shrink-0 inline-flex items-center gap-1 px-2.5 py-1 rounded-md border text-xs font-medium active:scale-95 transition cursor-pointer ${
+                      playingText === line.en
+                        ? "bg-[#EDF3EC] dark:bg-[#24382B] border-[#448361]/50 text-[#448361] dark:text-[#65A983]"
+                        : "border-[#E9E9E7] dark:border-[#373737] bg-[#FFFFFF] dark:bg-[#252525] text-[#37352F] dark:text-[#FFFFFFCF] hover:bg-[#F1F1EF] dark:hover:bg-[#2F2F2F]"
+                    }`}
                   >
-                    듣기 🔊
+                    {playingText === line.en ? "재생 중 🔊" : "듣기 🔊"}
                   </button>
                 </div>
                 <p className="text-xs sm:text-sm text-[#787774] dark:text-[#9B9A97]">
@@ -1199,9 +1238,13 @@ export default function DailyRoutine() {
               <button
                 type="button"
                 onClick={() => handleSpeak(currentTheme.essayEn)}
-                className="shrink-0 inline-flex items-center gap-1 px-2.5 py-1 rounded-md border border-[#E9E9E7] dark:border-[#373737] bg-[#FFFFFF] dark:bg-[#252525] text-[#37352F] dark:text-[#FFFFFFCF] text-xs font-medium hover:bg-[#F1F1EF] dark:hover:bg-[#2F2F2F] active:scale-95 transition cursor-pointer"
+                className={`shrink-0 inline-flex items-center gap-1 px-2.5 py-1 rounded-md border text-xs font-medium active:scale-95 transition cursor-pointer ${
+                  playingText === currentTheme.essayEn
+                    ? "bg-[#EDF3EC] dark:bg-[#24382B] border-[#448361]/50 text-[#448361] dark:text-[#65A983]"
+                    : "border-[#E9E9E7] dark:border-[#373737] bg-[#FFFFFF] dark:bg-[#252525] text-[#37352F] dark:text-[#FFFFFFCF] hover:bg-[#F1F1EF] dark:hover:bg-[#2F2F2F]"
+                }`}
               >
-                듣기 🔊
+                {playingText === currentTheme.essayEn ? "재생 중 🔊" : "듣기 🔊"}
               </button>
             </div>
             <p className="text-sm sm:text-[15px] font-medium leading-relaxed text-[#37352F] dark:text-[#FFFFFFCF]">
@@ -1255,19 +1298,35 @@ export default function DailyRoutine() {
             </h3>
           </div>
           <ul className="space-y-2">
-            {currentTheme.expressions.map((item, idx) => (
-              <li
-                key={idx}
-                className="p-3 rounded-md bg-[#F7F6F3] dark:bg-[#191919] border border-[#E9E9E7] dark:border-[#2F2F2F] text-xs sm:text-sm text-[#37352F] dark:text-[#FFFFFFCF] transition-colors hover:bg-[#F1F1EF] dark:hover:bg-[#252525]"
-              >
-                <span className="font-semibold text-[#37352F] dark:text-[#FFFFFFCF] mr-1.5">
-                  {item.num} {item.expr}
-                </span>
-                <span className="text-[#787774] dark:text-[#9B9A97]">
-                  : {item.meaning}
-                </span>
-              </li>
-            ))}
+            {currentTheme.expressions.map((item, idx) => {
+              const speechExpr = cleanExpressionForSpeech(item.expr);
+              return (
+                <li
+                  key={idx}
+                  className="p-3 rounded-md bg-[#F7F6F3] dark:bg-[#191919] border border-[#E9E9E7] dark:border-[#2F2F2F] text-xs sm:text-sm text-[#37352F] dark:text-[#FFFFFFCF] transition-colors hover:bg-[#F1F1EF] dark:hover:bg-[#252525] flex items-center justify-between gap-2"
+                >
+                  <div>
+                    <span className="font-semibold text-[#37352F] dark:text-[#FFFFFFCF] mr-1.5">
+                      {item.num} {item.expr}
+                    </span>
+                    <span className="text-[#787774] dark:text-[#9B9A97]">
+                      : {item.meaning}
+                    </span>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => handleSpeak(speechExpr)}
+                    className={`shrink-0 inline-flex items-center gap-1 px-2.5 py-1 rounded-md border text-xs font-medium active:scale-95 transition cursor-pointer ${
+                      playingText === speechExpr
+                        ? "bg-[#EDF3EC] dark:bg-[#24382B] border-[#448361]/50 text-[#448361] dark:text-[#65A983]"
+                        : "border-[#E9E9E7] dark:border-[#373737] bg-[#FFFFFF] dark:bg-[#252525] text-[#37352F] dark:text-[#FFFFFFCF] hover:bg-[#F1F1EF] dark:hover:bg-[#2F2F2F]"
+                    }`}
+                  >
+                    {playingText === speechExpr ? "재생 중 🔊" : "듣기 🔊"}
+                  </button>
+                </li>
+              );
+            })}
           </ul>
         </div>
       </div>
@@ -1290,9 +1349,13 @@ export default function DailyRoutine() {
           <button
             type="button"
             onClick={() => handleSpeak(currentTheme.missionEn)}
-            className="shrink-0 inline-flex items-center gap-1 px-2.5 py-1 rounded-md border border-[#E9E9E7] dark:border-[#373737] bg-[#FFFFFF] dark:bg-[#252525] text-[#37352F] dark:text-[#FFFFFFCF] text-xs font-medium hover:bg-[#F1F1EF] dark:hover:bg-[#2F2F2F] active:scale-95 transition cursor-pointer"
+            className={`shrink-0 inline-flex items-center gap-1 px-2.5 py-1 rounded-md border text-xs font-medium active:scale-95 transition cursor-pointer ${
+              playingText === currentTheme.missionEn
+                ? "bg-[#EDF3EC] dark:bg-[#24382B] border-[#448361]/50 text-[#448361] dark:text-[#65A983]"
+                : "border-[#E9E9E7] dark:border-[#373737] bg-[#FFFFFF] dark:bg-[#252525] text-[#37352F] dark:text-[#FFFFFFCF] hover:bg-[#F1F1EF] dark:hover:bg-[#2F2F2F]"
+            }`}
           >
-            듣기 🔊
+            {playingText === currentTheme.missionEn ? "재생 중 🔊" : "듣기 🔊"}
           </button>
         </div>
         <p className="text-xs text-[#787774] dark:text-[#9B9A97]">
