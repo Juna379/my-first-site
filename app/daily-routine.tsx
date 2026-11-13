@@ -1012,9 +1012,9 @@ export default function DailyRoutine() {
   };
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 md:space-y-8">
       {/* Keyword Input & Recommended Chips Section (Notion Database Property Block Style) */}
-      <section className="p-4 sm:p-5 rounded-lg border border-[#E9E9E7] dark:border-[#2F2F2F] bg-[#F7F6F3] dark:bg-[#202020] text-left space-y-3.5">
+      <section className="p-4 sm:p-5 md:p-6 rounded-lg border border-[#E9E9E7] dark:border-[#2F2F2F] bg-[#F7F6F3] dark:bg-[#202020] text-left space-y-3.5 md:space-y-4">
         <div className="space-y-0.5">
           <h2 className="text-sm sm:text-base font-semibold text-[#37352F] dark:text-[#FFFFFFCF]">
             오늘의 일상 키워드를 들려주세요
@@ -1045,7 +1045,7 @@ export default function DailyRoutine() {
           </button>
         </form>
 
-        <div className="flex flex-wrap gap-1.5 pt-0.5">
+        <div className="flex flex-wrap gap-1.5 md:gap-2 pt-0.5">
           {CHIP_ORDER.map((key) => {
             const item = PRESET_THEMES[key];
             const isSelected = currentTheme.id === item.id;
@@ -1068,13 +1068,13 @@ export default function DailyRoutine() {
       </section>
 
       {/* 3-Step Accordion Cards (Notion Toggle Card Style) */}
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5 text-left">
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5 md:gap-3.5 text-left">
         {/* Card 1 Trigger */}
         <button
           type="button"
           onClick={() => toggleStep(1)}
           aria-expanded={!!openSteps[1]}
-          className={`sm:order-1 w-full p-3.5 rounded-lg border text-left transition flex flex-col justify-between cursor-pointer ${
+          className={`sm:order-1 w-full p-3.5 md:p-4 rounded-lg border text-left transition flex flex-col justify-between cursor-pointer ${
             openSteps[1]
               ? "border-[#37352F]/40 dark:border-[#FFFFFFCF]/40 bg-[#F7F6F3] dark:bg-[#252525]"
               : "border-[#E9E9E7] dark:border-[#2F2F2F] bg-[#FFFFFF] dark:bg-[#202020] hover:bg-[#F7F6F3] dark:hover:bg-[#252525]"
@@ -1103,7 +1103,7 @@ export default function DailyRoutine() {
         <div
           className={`${
             openSteps[1] ? "block" : "hidden"
-          } sm:order-4 sm:col-span-3 p-4 sm:p-5 rounded-lg border border-[#E9E9E7] dark:border-[#2F2F2F] bg-[#FFFFFF] dark:bg-[#202020] space-y-4`}
+          } sm:order-4 sm:col-span-3 p-4 sm:p-5 md:p-7 rounded-lg border border-[#E9E9E7] dark:border-[#2F2F2F] bg-[#FFFFFF] dark:bg-[#202020] space-y-4`}
         >
           <div className="border-b border-[#E9E9E7] dark:border-[#2F2F2F] pb-2.5">
             <span className="inline-block px-2 py-0.5 rounded-sm bg-[#EDF3EC] dark:bg-[#24382B] text-[11px] font-semibold text-[#448361] dark:text-[#65A983] uppercase tracking-wider">
@@ -1114,11 +1114,11 @@ export default function DailyRoutine() {
             </h3>
           </div>
 
-          <div className="space-y-2.5">
+          <div className="space-y-2.5 md:space-y-3">
             {currentTheme.dialogues.map((line, idx) => (
               <div
                 key={idx}
-                className="p-3 rounded-md bg-[#F7F6F3] dark:bg-[#191919] border border-[#E9E9E7] dark:border-[#2F2F2F] space-y-1 transition-colors hover:bg-[#F1F1EF] dark:hover:bg-[#252525]"
+                className="p-3 md:p-3.5 rounded-md bg-[#F7F6F3] dark:bg-[#191919] border border-[#E9E9E7] dark:border-[#2F2F2F] space-y-1 transition-colors hover:bg-[#F1F1EF] dark:hover:bg-[#252525]"
               >
                 <div className="flex items-start justify-between gap-2">
                   <p className="text-sm sm:text-[15px] font-medium text-[#37352F] dark:text-[#FFFFFFCF]">
@@ -1152,7 +1152,7 @@ export default function DailyRoutine() {
           type="button"
           onClick={() => toggleStep(2)}
           aria-expanded={!!openSteps[2]}
-          className={`sm:order-2 w-full p-3.5 rounded-lg border text-left transition flex flex-col justify-between cursor-pointer ${
+          className={`sm:order-2 w-full p-3.5 md:p-4 rounded-lg border text-left transition flex flex-col justify-between cursor-pointer ${
             openSteps[2]
               ? "border-[#37352F]/40 dark:border-[#FFFFFFCF]/40 bg-[#F7F6F3] dark:bg-[#252525]"
               : "border-[#E9E9E7] dark:border-[#2F2F2F] bg-[#FFFFFF] dark:bg-[#202020] hover:bg-[#F7F6F3] dark:hover:bg-[#252525]"
@@ -1181,7 +1181,7 @@ export default function DailyRoutine() {
         <div
           className={`${
             openSteps[2] ? "block" : "hidden"
-          } sm:order-5 sm:col-span-3 p-4 sm:p-5 rounded-lg border border-[#E9E9E7] dark:border-[#2F2F2F] bg-[#FFFFFF] dark:bg-[#202020] space-y-4`}
+          } sm:order-5 sm:col-span-3 p-4 sm:p-5 md:p-7 rounded-lg border border-[#E9E9E7] dark:border-[#2F2F2F] bg-[#FFFFFF] dark:bg-[#202020] space-y-4`}
         >
           <div className="border-b border-[#E9E9E7] dark:border-[#2F2F2F] pb-2.5">
             <span className="inline-block px-2 py-0.5 rounded-sm bg-[#E7F3F8] dark:bg-[#1E323D] text-[11px] font-semibold text-[#2383E2] dark:text-[#529CCA] uppercase tracking-wider">
@@ -1258,7 +1258,7 @@ export default function DailyRoutine() {
           type="button"
           onClick={() => toggleStep(3)}
           aria-expanded={!!openSteps[3]}
-          className={`sm:order-3 w-full p-3.5 rounded-lg border text-left transition flex flex-col justify-between cursor-pointer ${
+          className={`sm:order-3 w-full p-3.5 md:p-4 rounded-lg border text-left transition flex flex-col justify-between cursor-pointer ${
             openSteps[3]
               ? "border-[#37352F]/40 dark:border-[#FFFFFFCF]/40 bg-[#F7F6F3] dark:bg-[#252525]"
               : "border-[#E9E9E7] dark:border-[#2F2F2F] bg-[#FFFFFF] dark:bg-[#202020] hover:bg-[#F7F6F3] dark:hover:bg-[#252525]"
@@ -1287,7 +1287,7 @@ export default function DailyRoutine() {
         <div
           className={`${
             openSteps[3] ? "block" : "hidden"
-          } sm:order-6 sm:col-span-3 p-4 sm:p-5 rounded-lg border border-[#E9E9E7] dark:border-[#2F2F2F] bg-[#FFFFFF] dark:bg-[#202020] space-y-3`}
+          } sm:order-6 sm:col-span-3 p-4 sm:p-5 md:p-7 rounded-lg border border-[#E9E9E7] dark:border-[#2F2F2F] bg-[#FFFFFF] dark:bg-[#202020] space-y-3 md:space-y-4`}
         >
           <div className="border-b border-[#E9E9E7] dark:border-[#2F2F2F] pb-2.5">
             <span className="inline-block px-2 py-0.5 rounded-sm bg-[#FBF3DB] dark:bg-[#3A311D] text-[11px] font-semibold text-[#CB912F] dark:text-[#E2B257] uppercase tracking-wider">
@@ -1297,13 +1297,13 @@ export default function DailyRoutine() {
               오늘의 핵심 표현
             </h3>
           </div>
-          <ul className="space-y-2">
+          <ul className="space-y-2 md:space-y-2.5">
             {currentTheme.expressions.map((item, idx) => {
               const speechExpr = cleanExpressionForSpeech(item.expr);
               return (
                 <li
                   key={idx}
-                  className="p-3 rounded-md bg-[#F7F6F3] dark:bg-[#191919] border border-[#E9E9E7] dark:border-[#2F2F2F] text-xs sm:text-sm text-[#37352F] dark:text-[#FFFFFFCF] transition-colors hover:bg-[#F1F1EF] dark:hover:bg-[#252525] flex items-center justify-between gap-2"
+                  className="p-3 md:p-3.5 rounded-md bg-[#F7F6F3] dark:bg-[#191919] border border-[#E9E9E7] dark:border-[#2F2F2F] text-xs sm:text-sm text-[#37352F] dark:text-[#FFFFFFCF] transition-colors hover:bg-[#F1F1EF] dark:hover:bg-[#252525] flex items-center justify-between gap-2"
                 >
                   <div>
                     <span className="font-semibold text-[#37352F] dark:text-[#FFFFFFCF] mr-1.5">
@@ -1332,7 +1332,7 @@ export default function DailyRoutine() {
       </div>
 
       {/* Today's Speaking Mission (Notion Callout Box Style) */}
-      <div className="p-4 sm:p-5 rounded-lg bg-[#F7F6F3] dark:bg-[#202020] border border-[#E9E9E7] dark:border-[#2F2F2F] text-left space-y-2.5">
+      <div className="p-4 sm:p-5 md:p-6 rounded-lg bg-[#F7F6F3] dark:bg-[#202020] border border-[#E9E9E7] dark:border-[#2F2F2F] text-left space-y-2.5">
         <div className="flex items-center justify-between text-[#787774] dark:text-[#9B9A97] border-b border-[#E9E9E7] dark:border-[#2F2F2F] pb-2">
           <span className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-semibold text-[#37352F] dark:text-[#FFFFFFCF]">
             <span>🎯</span>

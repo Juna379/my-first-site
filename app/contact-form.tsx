@@ -84,7 +84,7 @@ export default function ContactForm() {
 
   if (!isOpen) {
     return (
-      <div className="pt-2 border-t border-[#E9E9E7] dark:border-[#2F2F2F] flex justify-center w-full">
+      <div className="pt-2 md:pt-4 border-t border-[#E9E9E7] dark:border-[#2F2F2F] flex justify-center w-full">
         <button
           id="open-contact-button"
           type="button"
@@ -105,7 +105,7 @@ export default function ContactForm() {
     <section
       id="contact"
       aria-labelledby="contact-title"
-      className="w-full text-left rounded-lg border border-[#E9E9E7] dark:border-[#2F2F2F] bg-[#F7F6F3] dark:bg-[#202020] p-5 sm:p-6 transition-all"
+      className="w-full text-left rounded-lg border border-[#E9E9E7] dark:border-[#2F2F2F] bg-[#F7F6F3] dark:bg-[#202020] p-5 sm:p-6 md:p-7 transition-all"
     >
       <div className="mb-5 flex items-start justify-between gap-4 border-b border-[#E9E9E7] dark:border-[#2F2F2F] pb-3.5">
         <div className="space-y-0.5">

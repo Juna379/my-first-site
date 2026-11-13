@@ -4,10 +4,10 @@ import DailyRoutine from "./daily-routine";
 
 export default function Home() {
   return (
-    <main className="min-h-screen flex flex-col items-center py-10 sm:py-16 px-4 sm:px-8 bg-[#FFFFFF] dark:bg-[#191919] text-[#37352F] dark:text-[#FFFFFFCF]">
-      <div className="max-w-2xl w-full space-y-6 sm:space-y-8">
+    <main className="min-h-screen flex flex-col items-center py-10 sm:py-16 md:py-20 px-4 sm:px-8 md:px-12 bg-[#FFFFFF] dark:bg-[#191919] text-[#37352F] dark:text-[#FFFFFFCF]">
+      <div className="max-w-2xl md:max-w-[900px] w-full space-y-6 sm:space-y-8 md:space-y-10">
         {/* Notion Page Header & Rectangular Photo Collage */}
-        <header className="space-y-4 text-left border-b border-[#E9E9E7] dark:border-[#2F2F2F] pb-6">
+        <header className="space-y-4 md:space-y-5 text-left border-b border-[#E9E9E7] dark:border-[#2F2F2F] pb-6 md:pb-8">
           {/* Top Routine Tag Badge (Notion Style) */}
           <div className="flex items-center justify-start">
             <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-[#F1F1EF] dark:bg-[#252525] text-xs font-medium text-[#787774] dark:text-[#9B9A97]">
@@ -17,9 +17,9 @@ export default function Home() {
           </div>
 
           {/* 2-Column Hero Split: Straight Rectangular 4-Photo Collage + Typography */}
-          <div className="grid grid-cols-1 sm:grid-cols-[205px_1fr] items-center gap-5 sm:gap-6 pt-1">
+          <div className="grid grid-cols-1 sm:grid-cols-[205px_1fr] md:grid-cols-[240px_1fr] items-center gap-5 sm:gap-6 md:gap-8 pt-1">
             {/* Left: Straight Rectangular 4-Photo Collage (No Tilt, Fits Outer Frame) */}
-            <div className="mx-auto sm:mx-0 w-[220px] h-[175px] sm:w-[205px] sm:h-[165px] overflow-hidden rounded-lg border border-[#E9E9E7] dark:border-[#2F2F2F] bg-[#F7F6F3] dark:bg-[#202020] p-1.5 grid grid-rows-[48%_1fr] gap-1.5 shrink-0">
+            <div className="mx-auto sm:mx-0 w-[220px] h-[175px] sm:w-[205px] sm:h-[165px] md:w-[240px] md:h-[192px] overflow-hidden rounded-lg border border-[#E9E9E7] dark:border-[#2F2F2F] bg-[#F7F6F3] dark:bg-[#202020] p-1.5 grid grid-rows-[48%_1fr] gap-1.5 shrink-0">
               <div className="grid grid-cols-[56%_1fr] gap-1.5 min-h-0">
                 <div className="relative w-full h-full overflow-hidden rounded-sm bg-[#FFFFFF] dark:bg-[#252525]">
                   <Image
@@ -82,7 +82,7 @@ export default function Home() {
           </div>
 
           {/* Notion Callout Block */}
-          <div className="flex items-center gap-3 p-3.5 sm:p-4 rounded-lg bg-[#F7F6F3] dark:bg-[#202020] border border-[#E9E9E7] dark:border-[#2F2F2F] text-sm sm:text-[15px] leading-relaxed text-[#37352F] dark:text-[#FFFFFFCF] break-keep">
+          <div className="flex items-center gap-3 p-3.5 sm:p-4 md:px-5 md:py-4 rounded-lg bg-[#F7F6F3] dark:bg-[#202020] border border-[#E9E9E7] dark:border-[#2F2F2F] text-sm sm:text-[15px] leading-relaxed text-[#37352F] dark:text-[#FFFFFFCF] break-keep">
             <svg
               viewBox="0 0 24 24"
               fill="none"
