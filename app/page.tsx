@@ -1,15 +1,21 @@
 import Image from "next/image";
 import ContactForm from "./contact-form";
 import DailyRoutine from "./daily-routine";
+import TopNav from "./top-nav";
 
 export default function Home() {
   return (
-    <main className="min-h-screen flex flex-col items-center py-10 sm:py-16 md:py-20 px-4 sm:px-8 md:px-12 bg-[#FFFFFF] dark:bg-[#191919] text-[#37352F] dark:text-[#FFFFFFCF]">
-      <div className="max-w-2xl md:max-w-[900px] w-full space-y-6 sm:space-y-8 md:space-y-10">
-        {/* Notion Page Header & Rectangular Photo Collage */}
-        <header className="space-y-4 md:space-y-5 text-left border-b border-[#E9E9E7] dark:border-[#2F2F2F] pb-6 md:pb-8">
+    <div className="min-h-screen flex flex-col bg-[#FFFFFF] dark:bg-[#191919] text-[#37352F] dark:text-[#FFFFFFCF]">
+      <TopNav />
+      <main className="flex-1 flex flex-col items-center py-10 sm:py-16 md:py-20 px-4 sm:px-8 md:px-12">
+        <div className="max-w-2xl md:max-w-[900px] w-full space-y-6 sm:space-y-8 md:space-y-10">
+          {/* Notion Page Header & Rectangular Photo Collage */}
+          <header
+            id="hero-section"
+            className="space-y-4 md:space-y-5 text-left border-b border-[#E9E9E7] dark:border-[#2F2F2F] pb-6 md:pb-8"
+          >
           {/* Top Routine Tag Badge (Notion Style) */}
-          <div className="flex items-center justify-start">
+          <div className="flex items-center justify-center sm:justify-start">
             <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-[#F1F1EF] dark:bg-[#252525] text-xs font-medium text-[#787774] dark:text-[#9B9A97]">
               <span className="w-1.5 h-1.5 rounded-full bg-[#448361]" />
               <span>Today&apos;s 30-Minute Routine</span>
@@ -67,43 +73,20 @@ export default function Home() {
               </div>
             </div>
 
-            {/* Right: Hero Title, Korean Subtitle & English Serif Tagline */}
-            <div className="text-center sm:text-left space-y-2">
-              <h1 className="text-3xl sm:text-4xl font-bold tracking-tight leading-tight text-[#37352F] dark:text-[#FFFFFFCF]">
-                친구할까 영어랑
+            {/* Right: Hero Title, English Serif Tagline & Korean Subtitle */}
+            <div className="text-center sm:text-left space-y-2.5">
+              <h1 className="text-[21px] sm:text-3xl font-bold tracking-tight leading-snug text-[#37352F] dark:text-[#FFFFFFCF] break-keep">
+                매일 30분, 내 소소한 일상이
+                <br />
+                가장 확실한 영어 회화가 되는 곳.
               </h1>
-              <p className="text-sm sm:text-base font-medium leading-relaxed text-[#787774] dark:text-[#9B9A97] break-keep">
-                매일 30분, 내 소소한 일상이 가장 확실한 영어 회화가 되는 곳.
-              </p>
               <p className="font-serif italic text-xs sm:text-sm text-[#787774] dark:text-[#9B9A97]">
                 My Everyday Life, My English Story.
               </p>
+              <p className="text-xs sm:text-sm font-medium leading-relaxed text-[#787774] dark:text-[#9B9A97] break-keep">
+                내 하루의 이야기가 가장 생생한 영어 문장이 됩니다.
+              </p>
             </div>
-          </div>
-
-          {/* Notion Callout Block */}
-          <div className="flex items-center gap-3 p-3.5 sm:p-4 md:px-5 md:py-4 rounded-lg bg-[#F7F6F3] dark:bg-[#202020] border border-[#E9E9E7] dark:border-[#2F2F2F] text-sm sm:text-[15px] leading-relaxed text-[#37352F] dark:text-[#FFFFFFCF] break-keep">
-            <svg
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="1.6"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              className="w-5 h-5 shrink-0 text-[#787774] dark:text-[#9B9A97]"
-              aria-hidden="true"
-            >
-              <path d="M5 11h11v4a5 5 0 0 1-5 5H10a5 5 0 0 1-5-5v-4Z" />
-              <path d="M16 12h1.5a2.5 2.5 0 0 1 0 5H16" />
-              <path d="M4 20h14" />
-              <path d="M8.5 7.5c0-1 .8-1.4.8-2.5" />
-              <path d="M12 7.5c0-1 .8-1.4.8-2.5" />
-            </svg>
-            <span
-              className="h-4 w-px bg-[#E9E9E7] dark:bg-[#373737] shrink-0"
-              aria-hidden="true"
-            />
-            <span>내 하루의 이야기가 가장 생생한 영어 문장이 됩니다.</span>
           </div>
         </header>
 
@@ -112,7 +95,8 @@ export default function Home() {
 
         {/* Inquiry Form */}
         <ContactForm />
-      </div>
-    </main>
+        </div>
+      </main>
+    </div>
   );
 }

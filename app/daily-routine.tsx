@@ -1011,6 +1011,25 @@ export default function DailyRoutine() {
     }
   };
 
+  const getStepTabStyles = (isOpen: boolean) => ({
+    button: isOpen
+      ? "bg-[#2E4A3E] dark:bg-[#243D32] border-[#2E4A3E] dark:border-[#345446] shadow-sm"
+      : "bg-[#F3F1EC] dark:bg-[#1E1E1E] border-[#E3DFD5] dark:border-[#2C2C2C] hover:bg-[#ECEAE3] dark:hover:bg-[#252525]",
+    title: isOpen
+      ? "text-[#FFFFFF]"
+      : "text-[#37352F] dark:text-[#FFFFFFCF]",
+    subtitle: isOpen
+      ? "text-[#EAE5D9]"
+      : "text-[#787774] dark:text-[#9B9A97]",
+    arrow: isOpen
+      ? "rotate-180 text-[#EAE5D9]"
+      : "text-[#787774] dark:text-[#9B9A97]",
+  });
+
+  const step1Tab = getStepTabStyles(!!openSteps[1]);
+  const step2Tab = getStepTabStyles(!!openSteps[2]);
+  const step3Tab = getStepTabStyles(!!openSteps[3]);
+
   return (
     <div className="space-y-6 md:space-y-8">
       {/* Keyword Input & Recommended Chips Section (Notion Database Property Block Style) */}
@@ -1074,27 +1093,19 @@ export default function DailyRoutine() {
           type="button"
           onClick={() => toggleStep(1)}
           aria-expanded={!!openSteps[1]}
-          className={`sm:order-1 w-full p-3.5 md:p-4 rounded-lg border text-left transition flex flex-col justify-between cursor-pointer ${
-            openSteps[1]
-              ? "border-[#37352F]/40 dark:border-[#FFFFFFCF]/40 bg-[#F7F6F3] dark:bg-[#252525]"
-              : "border-[#E9E9E7] dark:border-[#2F2F2F] bg-[#FFFFFF] dark:bg-[#202020] hover:bg-[#F7F6F3] dark:hover:bg-[#252525]"
-          }`}
+          className={`sm:order-1 w-full p-3.5 md:p-4 rounded-lg border text-left transition flex flex-col justify-between cursor-pointer ${step1Tab.button}`}
         >
           <div className="flex items-start justify-between gap-2 w-full">
-            <p className="text-sm font-semibold text-[#37352F] dark:text-[#FFFFFFCF]">
+            <p className={`text-sm font-semibold ${step1Tab.title}`}>
               Step 1. Speaking (15분)
             </p>
             <span
-              className={`text-[11px] text-[#787774] dark:text-[#9B9A97] transition-transform duration-200 shrink-0 mt-0.5 ${
-                openSteps[1]
-                  ? "rotate-180 text-[#37352F] dark:text-[#FFFFFFCF]"
-                  : ""
-              }`}
+              className={`text-[11px] transition-transform duration-200 shrink-0 mt-0.5 ${step1Tab.arrow}`}
             >
               ▼
             </span>
           </div>
-          <p className="text-xs text-[#787774] dark:text-[#9B9A97] mt-1">
+          <p className={`text-xs mt-1 ${step1Tab.subtitle}`}>
             일상 대화 티키타카
           </p>
         </button>
@@ -1152,27 +1163,19 @@ export default function DailyRoutine() {
           type="button"
           onClick={() => toggleStep(2)}
           aria-expanded={!!openSteps[2]}
-          className={`sm:order-2 w-full p-3.5 md:p-4 rounded-lg border text-left transition flex flex-col justify-between cursor-pointer ${
-            openSteps[2]
-              ? "border-[#37352F]/40 dark:border-[#FFFFFFCF]/40 bg-[#F7F6F3] dark:bg-[#252525]"
-              : "border-[#E9E9E7] dark:border-[#2F2F2F] bg-[#FFFFFF] dark:bg-[#202020] hover:bg-[#F7F6F3] dark:hover:bg-[#252525]"
-          }`}
+          className={`sm:order-2 w-full p-3.5 md:p-4 rounded-lg border text-left transition flex flex-col justify-between cursor-pointer ${step2Tab.button}`}
         >
           <div className="flex items-start justify-between gap-2 w-full">
-            <p className="text-sm font-semibold text-[#37352F] dark:text-[#FFFFFFCF]">
+            <p className={`text-sm font-semibold ${step2Tab.title}`}>
               Step 2. Reading &amp; Writing (7분)
             </p>
             <span
-              className={`text-[11px] text-[#787774] dark:text-[#9B9A97] transition-transform duration-200 shrink-0 mt-0.5 ${
-                openSteps[2]
-                  ? "rotate-180 text-[#37352F] dark:text-[#FFFFFFCF]"
-                  : ""
-              }`}
+              className={`text-[11px] transition-transform duration-200 shrink-0 mt-0.5 ${step2Tab.arrow}`}
             >
               ▼
             </span>
           </div>
-          <p className="text-xs text-[#787774] dark:text-[#9B9A97] mt-1">
+          <p className={`text-xs mt-1 ${step2Tab.subtitle}`}>
             오늘의 1분 미니 에세이
           </p>
         </button>
@@ -1258,27 +1261,19 @@ export default function DailyRoutine() {
           type="button"
           onClick={() => toggleStep(3)}
           aria-expanded={!!openSteps[3]}
-          className={`sm:order-3 w-full p-3.5 md:p-4 rounded-lg border text-left transition flex flex-col justify-between cursor-pointer ${
-            openSteps[3]
-              ? "border-[#37352F]/40 dark:border-[#FFFFFFCF]/40 bg-[#F7F6F3] dark:bg-[#252525]"
-              : "border-[#E9E9E7] dark:border-[#2F2F2F] bg-[#FFFFFF] dark:bg-[#202020] hover:bg-[#F7F6F3] dark:hover:bg-[#252525]"
-          }`}
+          className={`sm:order-3 w-full p-3.5 md:p-4 rounded-lg border text-left transition flex flex-col justify-between cursor-pointer ${step3Tab.button}`}
         >
           <div className="flex items-start justify-between gap-2 w-full">
-            <p className="text-sm font-semibold text-[#37352F] dark:text-[#FFFFFFCF]">
+            <p className={`text-sm font-semibold ${step3Tab.title}`}>
               Step 3. Vocab &amp; Expression (8분)
             </p>
             <span
-              className={`text-[11px] text-[#787774] dark:text-[#9B9A97] transition-transform duration-200 shrink-0 mt-0.5 ${
-                openSteps[3]
-                  ? "rotate-180 text-[#37352F] dark:text-[#FFFFFFCF]"
-                  : ""
-              }`}
+              className={`text-[11px] transition-transform duration-200 shrink-0 mt-0.5 ${step3Tab.arrow}`}
             >
               ▼
             </span>
           </div>
-          <p className="text-xs text-[#787774] dark:text-[#9B9A97] mt-1">
+          <p className={`text-xs mt-1 ${step3Tab.subtitle}`}>
             오늘의 핵심 표현
           </p>
         </button>
