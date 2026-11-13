@@ -72,13 +72,13 @@ export default function TopNav() {
           onClick={() => scrollToSection("intro")}
           className="flex items-center gap-2.5 text-left cursor-pointer shrink-0"
         >
-          <span className="relative w-9 h-9 rounded-full overflow-hidden border-[1.5px] border-[#37352F] dark:border-[#FFFFFFCF] bg-[#EDF3EC] dark:bg-[#24382B] p-0.5 shrink-0">
+          <span className="relative w-9 h-9 shrink-0">
             <Image
-              src="/sprout-logo.png"
-              alt="친구할까 영어랑 새싹 캐릭터 로고"
+              src="/character-logo.png"
+              alt="친구할까 영어랑 캐릭터 로고"
               fill
               sizes="36px"
-              className="object-cover scale-110"
+              className="object-contain dark:invert"
               priority
             />
           </span>
